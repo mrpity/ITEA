@@ -1,9 +1,10 @@
-#contacts = {'Dima': '+380503520391', 'Pity':'+3805031231'}
+# contacts = {'Dima': '+380503520391', 'Pity':'+3805031231'}
 import my_pickle
 import my_csv
 
-#contacts = my_pickle.load('phones.txt')
-#contacts = my_csv.load('csv_phones.txt')
+# contacts = my_pickle.load('phones.txt')
+contacts = my_csv.load('csv_phones.txt')
+
 
 def controller():
     select = input("Choose actions(ad,rd,rm,up): ")
@@ -46,21 +47,23 @@ def controller():
 
 
 def add(name, phone):
-    contacts[name]=phone
+    contacts[name] = phone
+
 
 def read(name):
     if contacts[name]:
-        print ("Name: {}, Phone: {}".format(name, contacts[name]))
+        print("Name: {}, Phone: {}".format(name, contacts[name]))
+
 
 def remove(name):
     if contacts[name]:
         contacts.pop(name)
 
+
 def update(name, phone):
     if contacts[name]:
-        contacts[name]=phone
+        contacts[name] = phone
+
 
 controller()
-
-#print(contacts)
 
