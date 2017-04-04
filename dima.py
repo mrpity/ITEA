@@ -3,7 +3,7 @@ import my_pickle
 import my_csv
 
 #contacts = my_pickle.load('phones.txt')
-contacts = my_csv.load('csv_phones.txt')
+#contacts = my_csv.load('csv_phones.txt')
 
 def controller():
     select = input("Choose actions(ad,rd,rm,up): ")
