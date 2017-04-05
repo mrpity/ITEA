@@ -1,6 +1,5 @@
-# contacts = {'Dima': '+380503520391', 'Pity':'+3805031231'}
-import my_pickle
-import my_csv
+#import my_pickle
+#import my_csv
 import configparser
 import sys
 
@@ -13,6 +12,9 @@ def getConfig(config_file, module_name):
 config = getConfig('file_storage.ini', 'pickle')
 print(config['module'])
 print(type(config['module']))
+
+print(config.items())
+print(config)
 
 
 sys.exit(0)
@@ -40,7 +42,6 @@ def controller():
         phone = input("Enter phone number: ")
         try:
             add(name, phone)
-            my_csv.save('csv_phones.txt', contacts)
             config['module'].save('phones.txt', contacts)
         except NameError:
             print("Cann't add phone number")
