@@ -1,12 +1,39 @@
 # contacts = {'Dima': '+380503520391', 'Pity':'+3805031231'}
 import my_pickle
 import my_csv
+import configparser
+import sys
+
+def getConfig(config_file, module_name):
+    config = configparser.ConfigParser()
+    conf_dir = '{}'.format(config_file)
+    config.read(conf_dir)
+    return config['{}'.format(module_name)]
+
+config = getConfig('file_storage.ini', 'pickle')
+print(config['module'])
+print(type(config['module']))
+
+
+sys.exit(0)
 
 # contacts = my_pickle.load('phones.txt')
-contacts = my_csv.load('csv_phones.txt')
+#contacts = my_csv.load('csv_phones.txt')
 
 
 def controller():
+
+    select = input("Choose module for storing data(pickle or csv): ")
+    if select == 'csv':
+        config = getConfig('file_storage.ini', '{}'.format(select))
+
+        contacts = config['module'].load('phones.txt')
+    elif select == 'pickle':
+        config = getConfig('file_storage.ini', '{}'.format(select))
+        contacts = config['module'].load('phones.txt')
+    else:
+        raise("ERROR.Cann't recognize module name!!")
+
     select = input("Choose actions(ad,rd,rm,up): ")
     if select == 'ad':
         name = input("Enter name: ")
@@ -14,15 +41,14 @@ def controller():
         try:
             add(name, phone)
             my_csv.save('csv_phones.txt', contacts)
-#            my_pickle.save('phones.txt', contacts)
+            config['module'].save('phones.txt', contacts)
         except NameError:
             print("Cann't add phone number")
 
     elif select == 'rd':
         name = input("Enter name for searching: ")
         try:
-#            read(name)
-            my_csv.read('csv_phones.txt', name)
+            read(name)
         except KeyError:
             print("Such name doesn't exist")
 
@@ -30,7 +56,7 @@ def controller():
         name = input("Enter name for removing: ")
         try:
             remove(name)
-#            my_pickle.save('phones.txt', contacts)
+            config['module'].save('phones.txt', contacts)
         except KeyError:
             print("Such name doesn't exist")
 
@@ -39,7 +65,7 @@ def controller():
         phone = input("Enter phone number for updating: ")
         try:
             update(name, phone)
-#            my_pickle.save('phones.txt', contacts)
+            config['module'].save('phones.txt', contacts)
         except KeyError:
             print("Such name doesn't exist")
     else:

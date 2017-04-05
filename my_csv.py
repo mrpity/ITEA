@@ -9,11 +9,11 @@ def save(filename, my_dict):
     return my_dict
 
 
-def read(filename, name):
-    with open('{}'.format(filename), 'rt') as csv_file:
-        reader = csv.reader(csv_file)
-        my_dict = dict(reader)
-    return name, my_dict[name]
+#def read(filename, name):
+#    with open('{}'.format(filename), 'rt') as csv_file:
+#        reader = csv.reader(csv_file)
+#        my_dict = dict(reader)
+#    return name, my_dict[name]
 
 
 def load(filename):

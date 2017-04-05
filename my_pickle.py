@@ -9,9 +9,9 @@ def save(filename, phone_dict):
 def load(filename):
     try:
         with open('{}'.format(filename), 'rb') as f:
-            obj = pickle.load(f)
+            my_dict = pickle.load(f)
     except Exception as e:
         return {}
-    return obj
+    return my_dict
 
 
