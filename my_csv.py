@@ -8,15 +8,13 @@ def save(filename, my_dict):
             writer.writerow([key, value])
     return my_dict
 
-#my_dict = {'1': '1231', 'Dima': '+342354'}
-
-#print(save('csv_test.txt', my_dict))
 
 def read(filename, name):
     with open('{}'.format(filename), 'rt') as csv_file:
         reader = csv.reader(csv_file)
         my_dict = dict(reader)
     return name, my_dict[name]
+
 
 def load(filename):
     try:
@@ -27,4 +25,4 @@ def load(filename):
         return {}
     return my_dict
 
-#print(read('csv_test.txt', 'Dima'))
+
