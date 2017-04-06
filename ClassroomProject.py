@@ -1,6 +1,12 @@
 import configparser
 import sys
 
+#def main_controller():
+#    contacts, m = load_contacts()
+#    print(contacts)
+#    print(m)
+#    controller()
+
 def controller():
 
     select = input("Choose actions(ad,rd,rm,up): ")
@@ -9,7 +15,7 @@ def controller():
         phone = input("Enter phone number: ")
         try:
             add(name, phone)
-            print(contacts)
+            m.save('phones.txt', contacts)
         except NameError:
             print("Cann't add phone number")
 
@@ -49,7 +55,7 @@ def load_contacts():
     elif select == 'pickle':
         config = getConfig('file_storage.ini', '{}'.format(select))
         if config['module'] == 'pickle':
-            import my_csv as m
+            import my_pickle as m
             contacts = m.load('phones.txt')
     else:
         raise("ERROR.Cann't recognize module name!!")
@@ -84,3 +90,4 @@ def update(name, phone):
 
 contacts, m = load_contacts()
 controller()
+#main_controller()
