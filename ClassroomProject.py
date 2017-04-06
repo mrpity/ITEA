@@ -1,29 +1,7 @@
 import configparser
 import sys
-#import my_pickle
-#import my_csv
-#contacts = my_pickle.load('phones.txt')
-#contacts = my_csv.load('csv_phones.txt')
-
-contacts = ''
 
 def controller():
-
-    select = input("Choose module for storing data(pickle or csv): ")
-    if select == 'csv':
-        config = getConfig('file_storage.ini', '{}'.format(select))
-        if config['module'] == 'csv':
-            import my_csv as m
-            global contacts
-            contacts = m.load('phones.txt')
-    elif select == 'pickle':
-        config = getConfig('file_storage.ini', '{}'.format(select))
-        if config['module'] == 'pickle':
-            import my_csv as m
-            global contacts
-            contacts = m.load('phones.txt')
-    else:
-        raise("ERROR.Cann't recognize module name!!")
 
     select = input("Choose actions(ad,rd,rm,up): ")
     if select == 'ad':
@@ -31,7 +9,7 @@ def controller():
         phone = input("Enter phone number: ")
         try:
             add(name, phone)
-            m.save('phones.txt', contacts)
+            print(contacts)
         except NameError:
             print("Cann't add phone number")
 
@@ -61,6 +39,23 @@ def controller():
     else:
         print("I donn't know such action")
 
+def load_contacts():
+    select = input("Choose module for storing data(pickle or csv): ")
+    if select == 'csv':
+        config = getConfig('file_storage.ini', '{}'.format(select))
+        if config['module'] == 'csv':
+            import my_csv as m
+            contacts = m.load('phones.txt')
+    elif select == 'pickle':
+        config = getConfig('file_storage.ini', '{}'.format(select))
+        if config['module'] == 'pickle':
+            import my_csv as m
+            contacts = m.load('phones.txt')
+    else:
+        raise("ERROR.Cann't recognize module name!!")
+
+    return contacts, m
+
 
 def getConfig(config_file, module_name):
     config = configparser.ConfigParser()
@@ -87,5 +82,5 @@ def update(name, phone):
     if contacts[name]:
         contacts[name] = phone
 
-
+contacts, m = load_contacts()
 controller()
