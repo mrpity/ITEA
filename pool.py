@@ -36,6 +36,7 @@ class Fish:
         self._x, self._y = x, y
         self._pool = pool
 
+
     def get_distance(self, x, y):
         return math.hypot(self._x - x, self._y - y)
 
@@ -62,6 +63,7 @@ class Eatable:
 class SmallFish(Fish, Eatable):
     def __init__(self, x, y, pool: Pool):  ### pool: Pool --- type anotations
         super().__init__(x, y, pool)
+
 
     def move(self):
         self._x = self._x + random.randint(-1, 1)

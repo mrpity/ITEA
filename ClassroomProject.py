@@ -1,11 +1,7 @@
 import configparser
 import sys
 
-#def main_controller():
-#    contacts, m = load_contacts()
-#    print(contacts)
-#    print(m)
-#    controller()
+
 
 def controller():
 
