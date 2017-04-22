@@ -27,11 +27,14 @@ class MyCVS:
 
 class MyPickle:
 
+    # def __init__(self):
+    #     self.filename = ''
+
     def save(filename, phone_dict):
         with open('{}'.format(filename), 'wb') as f:
             pickle.dump(phone_dict, f)
 
-    def load(filename):
+    def load(self, filename):
         try:
             with open('{}'.format(filename), 'rb') as f:
                 my_dict = pickle.load(f)
