@@ -81,7 +81,7 @@ class BigFish(Fish):
         super().move()
 
 if __name__ == '__main__':
-    p = Pool(10, 10, 3, 5)
+    p = Pool(10, 10, 2, 3)
     print(p)
     p.move_fishes()
     print('--------------')
