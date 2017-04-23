@@ -60,7 +60,6 @@ class ModelPhone:
         self.mode = self.get_config()
         self.mode_class = self.check_mode()
         self.phonebook = self.mode_class.load()
-        print(self.phonebook)
 
     def get_config(self):
         config = configparser.ConfigParser()
@@ -147,9 +146,8 @@ class ControllerPhone:
                 print("Thanks! Bye!")
                 sys.exit(14)
             else:
-                raise MyException("Action: {} isn't exist".format(select))
+                print ("Action: {} isn't exist".format(select))
 
 if __name__ == '__main__':
 
     controller = ControllerPhone()
-    print(controller)
