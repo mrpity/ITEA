@@ -58,7 +58,8 @@ class ModelPhone:
 
     def __init__(self):
         self.mode = self.get_config()
-        self.phonebook = self.check_mode().load()
+        self.mode_class = self.check_mode()
+        self.phonebook = self.mode_class.load()
         print(self.phonebook)
 
     def get_config(self):
@@ -79,21 +80,39 @@ class ModelPhone:
         else:
             raise MyException("ERROR. Mode: {} isn't implemented yet".format(self.mode))
 
+    def decor_save(f):
+        def wrapper(self, *args):
+            result = f(self, *args)
+            self.mode_class.save(self.phonebook)
+            return result
+        return wrapper
+
+    @decor_save
     def add(self, name, phonenumber):
-        self.phonebook[name] = phonenumber
-        print(self.phonebook)
+        try:
+            self.phonebook[name] = phonenumber
+        except KeyError:
+            print('{} or {} does not exist'.format(name,phonenumber))
 
     def read(self, name):
-        if self.phonebook[name]:
-            self.phonebook("Name: {}, Phone: {}".format(name, self.phonebook[name]))
+        try:
+            print("Name: {}, Phone: {}".format(name, self.phonebook[name]))
+        except KeyError:
+            print('{} does not exist'.format(name))
 
+    @decor_save
     def remove(self, name):
-        if self.phonebook[name]:
+        try:
             self.phonebook.pop(name)
+        except KeyError:
+            print('{} does not exist'.format(name))
 
+    @decor_save
     def update(self, name, phonenumber):
-        if self.phonebook[name]:
+        try:
             self.phonebook[name] = phonenumber
+        except KeyError:
+            print('{} or {} does not exist'.format(name,phonenumber))
 
 
 class ControllerPhone:
