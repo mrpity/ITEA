@@ -1,9 +1,12 @@
 import pickle
 import csv
 import configparser
+import sys
+
 
 class MyException(Exception):
     pass
+
 
 class MyCSV:
 
@@ -17,15 +20,16 @@ class MyCSV:
                 writer.writerow([key, value])
         return phone_dict
 
-
-    def load(filename):
+    def load(self):
         try:
-            with open('{}'.format(filename), 'rt') as csv_file:
+            with open('{}'.format(self.filename), 'rt') as csv_file:
                 reader = csv.reader(csv_file)
                 my_dict = dict(reader)
         except Exception as e:
+            print(e, ": Return empty phonebook dictionary")
             return {}
         return my_dict
+
 
 class MyPickle:
 
@@ -52,7 +56,6 @@ class ModelPhone:
     SECTION_ = 'MAIN'
     VAR_ = 'mode'
 
-
     def __init__(self):
         self.mode = self.get_config()
         self.phonebook = self.check_mode().load()
@@ -77,7 +80,8 @@ class ModelPhone:
             raise MyException("ERROR. Mode: {} isn't implemented yet".format(self.mode))
 
     def add(self, name, phonenumber):
-        self.phonebook[name] = self.phonenumber
+        self.phonebook[name] = phonenumber
+        print(self.phonebook)
 
     def read(self, name):
         if self.phonebook[name]:
@@ -87,39 +91,44 @@ class ModelPhone:
         if self.phonebook[name]:
             self.phonebook.pop(name)
 
-    def update(self, name):
+    def update(self, name, phonenumber):
         if self.phonebook[name]:
-            self.phonebook[name] = self.phonenumber
+            self.phonebook[name] = phonenumber
 
 
 class ControllerPhone:
 
-    # CONF_FILE_ = 'store_mode.cnf'
-    # SECTION_ = 'MAIN'
-    # VAR_ = 'mode'
-
     def __init__(self):
         self.model_ = ModelPhone()
-        # self.mode = self.get_config()
-        # if self.mode == 'pickle':
-        #     self.phonebook = MyPickle.load('pickle')
-        # elif self.mode == 'csv':
-        #     self.phonebook == MyCVS.load('csv')
-        # else:
-        #     raise
+        self.choose_action()
 
-    # def __repr__(self):
-    #     return "Class name: {}, Settings: {}".format(self.__class__.__name__, self.get_config())
-    #
-    # def get_config(self):
-    #     config = configparser.ConfigParser()
-    #     config.read(self.CONF_FILE_)
-    #     try:
-    #         mode = config['{}'.format(self.SECTION_)]['{}'.format(self.VAR_)]
-    #         return mode
-    #     except KeyError:
-    #         print("ERROR. File: {} doesn't exist or SECTION: {} isn't valid!".format(self.CONF_FILE_, self.SECTION_))
-
+    def choose_action(self):
+        while True:
+            select =  input("Choose actions("
+                           "A - add,"
+                           "R - read,"
+                           "D - delete,"
+                           "U - update "
+                           "E - exit):")
+            if select == 'A':
+                name = input("Enter name: ")
+                phone = input("Enter phone number: ")
+                self.model_.add(name, phone)
+            elif select == 'R':
+                name = input("Enter name for searching: ")
+                self.model_.read(name)
+            elif select == 'D':
+                name = input("Enter name for removing: ")
+                self.model_.remove(name)
+            elif select == 'U':
+                name = input("Enter name for updating: ")
+                phone = input("Enter phone number for updating: ")
+                self.model_.update(name, phone)
+            elif select == 'E':
+                print("Thanks! Bye!")
+                sys.exit(14)
+            else:
+                raise MyException("Action: {} isn't exist".format(select))
 
 if __name__ == '__main__':
 
