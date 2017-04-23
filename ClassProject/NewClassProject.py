@@ -2,18 +2,20 @@ import pickle
 import csv
 import configparser
 
-class MyCVS:
+class MyException(Exception):
+    pass
 
-    def __init__(self, filename, phone_dict):
-        self.filename = filename
-        self.phone_dict = phone_dict
+class MyCSV:
 
-    def save(self):
+    def __init__(self):
+        self.filename = 'phones_csv.txt'
+
+    def save(self, phone_dict):
         with open('{}'.format(self.filename), 'wt') as csv_file:
             writer = csv.writer(csv_file)
-            for key, value in self.phone_dict.items():
+            for key, value in phone_dict.items():
                 writer.writerow([key, value])
-        return self.phone_dict
+        return phone_dict
 
 
     def load(filename):
@@ -27,22 +29,21 @@ class MyCVS:
 
 class MyPickle:
 
-    # def __init__(self):
-    #     self.filename = ''
+    def __init__(self):
+         self.filename = 'phones_pickle.txt'
 
-    def save(filename, phone_dict):
-        with open('{}'.format(filename), 'wb') as f:
+    def save(self, phone_dict):
+        with open('{}'.format(self.filename), 'wb') as f:
             pickle.dump(phone_dict, f)
 
-    def load(self, filename):
+    def load(self):
         try:
-            with open('{}'.format(filename), 'rb') as f:
+            with open('{}'.format(self.filename), 'rb') as f:
                 my_dict = pickle.load(f)
         except Exception as e:
+            print(e, ": Return empty phonebook dictionary")
             return {}
         return my_dict
-
-
 
 
 class ModelPhone:
@@ -50,12 +51,12 @@ class ModelPhone:
     CONF_FILE_ = 'store_mode.cnf'
     SECTION_ = 'MAIN'
     VAR_ = 'mode'
-    PHONE_BOOK = 'phones.txt'
 
 
     def __init__(self):
         self.mode = self.get_config()
-        self.phonebook = self.check_mode().load(self.PHONE_BOOK)
+        self.phonebook = self.check_mode().load()
+        print(self.phonebook)
 
     def get_config(self):
         config = configparser.ConfigParser()
@@ -70,25 +71,25 @@ class ModelPhone:
 
         if self.mode == 'pickle':
             return MyPickle()
-        if self.mode == 'csv':
-            return MyCVS()
+        elif self.mode == 'csv':
+            return MyCSV()
         else:
-            raise Exception
+            raise MyException("ERROR. Mode: {} isn't implemented yet".format(self.mode))
 
-    def add(self):
-        CONTACTS[self.name] = self.phonenumber
+    def add(self, name, phonenumber):
+        self.phonebook[name] = self.phonenumber
 
-    def read(self):
-        if CONTACTS[self.name]:
-            print("Name: {}, Phone: {}".format(self.name, CONTACTS[self.name]))
+    def read(self, name):
+        if self.phonebook[name]:
+            self.phonebook("Name: {}, Phone: {}".format(name, self.phonebook[name]))
 
-    def remove(self):
-        if CONTACTS[self.name]:
-            CONTACTS.pop(self.name)
+    def remove(self, name):
+        if self.phonebook[name]:
+            self.phonebook.pop(name)
 
-    def update(self):
-        if CONTACTS[self.name]:
-            CONTACTS[self.name] = self.phonenumber
+    def update(self, name):
+        if self.phonebook[name]:
+            self.phonebook[name] = self.phonenumber
 
 
 class ControllerPhone:
