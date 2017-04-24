@@ -129,6 +129,7 @@ def coroutine(f):
 
 @coroutine
 def f():
+    print('f start:')
     i = yield
     print('f:', i)
     i = yield i + 1
@@ -138,13 +139,13 @@ def f():
 #    yield i + 1
 
 def main():
-    i = f.send(0)
-    print('main:', i)
-    i = f.send(i + 1)
+    print('Start main:')
+    i = f.send(1)
     print('main:', i)
     i = f.send(i + 1)
     print('main:', i)
 
+print("------------")
 main()
 
 
