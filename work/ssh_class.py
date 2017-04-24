@@ -3,11 +3,11 @@ import paramiko
 
 class RUN_SSH:
 
-    def __init__(self, filename, env_list: list):
+    def __init__(self, filename, env_list: list, cmd: str):
         self.filename = filename
         self.env_list = env_list
         self.username_ = "dkhodakivsky"
-        self.cmd_ = "echo 'test_paramiko' > /tmp/test_paramiko.txt"
+        self.cmd_ = cmd
         self.config = self.get_config()
         self.config_servers = 'servers'
         self.whirl_zone = self.config['DEFAULT']['zone']
@@ -49,4 +49,5 @@ if __name__ == '__main__':
 
     FILENAME = "server_list.conf"
     ENV_LIST = ['PITY', 'QA1', 'QA2']
-    R = RUN_SSH(FILENAME, ENV_LIST)
+    CMD = "echo 'test_class_paramiko' > /tmp/test_paramiko.txt"
+    R = RUN_SSH(FILENAME, ENV_LIST, CMD)
