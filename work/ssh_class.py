@@ -5,15 +5,17 @@ import pprint
 class RUN_SSH:
 
     def __init__(self, filename, env_list: list, cmd: str, ssh_user):
+
         self.filename = filename
         self.env_list = env_list
         self.username_ = ssh_user
         self.cmd_ = cmd
+
         self.config = self.get_config()
         self.config_servers = 'servers'
         self.whirl_zone = self.config['DEFAULT']['zone']
-        self.servers= []
 
+        self.servers= []
         self.get_servers()
 
     def get_config(self):
@@ -33,10 +35,7 @@ class RUN_SSH:
             for item in self.config['{}'.format(env)]['{}'.format(self.config_servers)].split(','):
                 server_list_.append(item.strip())
             self.servers += server_list_
-            # ssh = self.ssh_instance()
             print("Server list: {}, for ENV:{}".format(server_list_, env))
-
-            # self.ssh_execute(ssh, server_list_)
 
     def ssh_execute(self):
 
