@@ -1,6 +1,7 @@
 import configparser
 import paramiko
 import pprint
+import requests
 
 class RUN_SSH:
 
@@ -43,7 +44,7 @@ class RUN_SSH:
         for item in self.servers:
             server = "{}".format(item) + "." + self.whirl_zone
             try:
-                ssh.connect(hostname='{}'.format(server), username='{}'.format(self.username_), timeout=5.0)
+                ssh.connect(hostname='{}'.format(server), username='{}'.format(self.username_), timeout=3.0)
                 ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command('{}'.format(self.cmd_), get_pty=True)
                 pprint.pprint("Executed on {}, stdout: {}".format(server, ssh_stdout.readlines()))
             except Exception:
