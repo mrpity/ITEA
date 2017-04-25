@@ -3,14 +3,15 @@ import paramiko
 
 class RUN_SSH:
 
-    def __init__(self, filename, env_list: list, cmd: str):
+    def __init__(self, filename, env_list: list, cmd: str, ssh_user):
         self.filename = filename
         self.env_list = env_list
-        self.username_ = "dkhodakivsky"
+        self.username_ = ssh_user
         self.cmd_ = cmd
         self.config = self.get_config()
         self.config_servers = 'servers'
         self.whirl_zone = self.config['DEFAULT']['zone']
+        # self.servers= []
 
         self.get_servers()
 
@@ -32,6 +33,7 @@ class RUN_SSH:
                 server_list_.append(item.strip())
             ssh = self.ssh_instance()
             print("Server list: {}, for ENV:{}".format(server_list_, env))
+
             self.ssh_execute(ssh, server_list_)
 
     def ssh_execute(self, ssh, server_list):
@@ -41,13 +43,17 @@ class RUN_SSH:
             try:
                 ssh.connect(hostname='{}'.format(server), username='{}'.format(self.username_))
                 ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command('{}'.format(self.cmd_))
-                print(server, ssh_stdout)
+                print("Executed on {}, stdout: {}".format(server, ssh_stdout.read()))
             except Exception:
                 print(Exception, "Could not connect to host {}".format(server))
 
 if __name__ == '__main__':
 
+    SSH_USER = "dkhodakivsky"
     FILENAME = "server_list.conf"
-    ENV_LIST = ['PITY', 'QA1', 'QA2']
-    CMD = "echo 'test_class_paramiko' > /tmp/test_paramiko.txt"
-    R = RUN_SSH(FILENAME, ENV_LIST, CMD)
+    ENV_LIST = ['DEV2']
+
+    CMD = "sudo rm -rf /opt/download/*"
+
+
+    R = RUN_SSH(FILENAME, ENV_LIST, CMD, SSH_USER)
