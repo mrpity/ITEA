@@ -12,7 +12,7 @@ class RUN_SSH:
         self.config = self.get_config()
         self.config_servers = 'servers'
         self.whirl_zone = self.config['DEFAULT']['zone']
-        # self.servers= []
+        self.servers= []
 
         self.get_servers()
 
@@ -32,14 +32,16 @@ class RUN_SSH:
             server_list_ = []
             for item in self.config['{}'.format(env)]['{}'.format(self.config_servers)].split(','):
                 server_list_.append(item.strip())
-            ssh = self.ssh_instance()
+            self.servers += server_list_
+            # ssh = self.ssh_instance()
             print("Server list: {}, for ENV:{}".format(server_list_, env))
 
-            self.ssh_execute(ssh, server_list_)
+            # self.ssh_execute(ssh, server_list_)
 
-    def ssh_execute(self, ssh, server_list):
+    def ssh_execute(self):
 
-        for item in server_list:
+        ssh = self.ssh_instance()
+        for item in self.servers:
             server = "{}".format(item) + "." + self.whirl_zone
             try:
                 ssh.connect(hostname='{}'.format(server), username='{}'.format(self.username_))
@@ -58,3 +60,4 @@ if __name__ == '__main__':
     CMD = "sudo rm -rf /opt/download/*; ls /opt/download/"
 
     R = RUN_SSH(FILENAME, ENV_LIST, CMD, SSH_USER)
+    R.ssh_execute()
