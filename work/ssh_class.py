@@ -43,7 +43,7 @@ class RUN_SSH:
         for item in self.servers:
             server = "{}".format(item) + "." + self.whirl_zone
             try:
-                ssh.connect(hostname='{}'.format(server), username='{}'.format(self.username_))
+                ssh.connect(hostname='{}'.format(server), username='{}'.format(self.username_), timeout=5.0)
                 ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command('{}'.format(self.cmd_), get_pty=True)
                 pprint.pprint("Executed on {}, stdout: {}".format(server, ssh_stdout.readlines()))
             except Exception:
@@ -54,7 +54,7 @@ if __name__ == '__main__':
     SSH_USER = "dkhodakivsky"
     FILENAME = "server_list.conf"
     #ENV_LIST = ['QA1','QA2','QA2','QA4','QA5','DEV2','DEV3','DEV4','DEV5','DEV6','DEV7','DEV8','DEMO1']
-    ENV_LIST = ['PITY']
+    ENV_LIST = ['DEV1']
 
     CMD = "sudo rm -rf /opt/download/*; ls /opt/download/"
 
