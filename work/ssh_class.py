@@ -19,6 +19,9 @@ class RUN_SSH:
         self.servers= []
         self.get_servers()
 
+    def __repr__(self):
+        return "{}".format([server for server in self.servers])
+
     def get_config(self):
         config = configparser.ConfigParser()
         config.read('{}'.format(self.filename))
@@ -61,3 +64,4 @@ if __name__ == '__main__':
 
     R = RUN_SSH(FILENAME, ENV_LIST, CMD, SSH_USER)
     R.ssh_execute()
+    print(R)
