@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
     SSH_USER = "dkhodakivsky"
     FILENAME = "server_list.conf"
-    ENV_LIST = ['QA1','QA2','QA2','QA4','QA5','DEV1','DEV2','DEV3','DEV4','DEV5','DEV6','DEV7','DEV8','DEMO1']
+    ENV_LIST = ['QA1','QA2','QA2','QA4','QA5','DEV2','DEV3','DEV4','DEV5','DEV6','DEV7','DEV8','DEMO1']
 
     CMD = "sudo rm -rf /opt/download/*"
 
