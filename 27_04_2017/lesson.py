@@ -106,8 +106,6 @@ class Aa(metaclass=abc.ABCMeta):
     def h(self):
         pass
 
-
-
 if __name__ == '__main__':
 
     # a = A()
