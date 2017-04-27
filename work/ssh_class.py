@@ -8,6 +8,7 @@ class RUN_SSH:
         self.env_list = env_list
         self.username_ = "dkhodakivsky"
         self.cmd_ = cmd
+
         self.config = self.get_config()
         self.config_servers = 'servers'
         self.whirl_zone = self.config['DEFAULT']['zone']
