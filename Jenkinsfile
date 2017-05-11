@@ -9,5 +9,5 @@ node {
    
    stage "STAGE 3. Print envs variables"
    echo "JAVA_HOME: ${env.JAVA_HOME}"
-   echo "JAVA_HOME: ${env.TEST_VAR}"
+   echo "My test: ${env.TEST_VAR}"
 }
