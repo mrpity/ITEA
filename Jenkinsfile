@@ -37,9 +37,8 @@ node {
    def branches = [:]
 
    for (int i = 0; i < 4; i++) {
-      def index = i //if we tried to use i below, it would equal 4 in each job execution.
+      def index = i 
       branches["branch${i}"] = "atata-${i}"
-   }
-   echo branches
+    }
    echo ${branches}
 }
