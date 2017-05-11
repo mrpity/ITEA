@@ -10,4 +10,6 @@ node {
    stage "STAGE 3. Print envs variables"
    echo "JAVA_HOME: ${env.JAVA_HOME}"
    echo "My test: ${env.TEST_VAR}"
+   def TVAR = 'atatata'
+   echo "variable: ${TVAR}"
 }
