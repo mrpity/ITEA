@@ -13,17 +13,10 @@ node {
    def TVAR = 'atatata'
    echo "variable: ${TVAR}"
    
-   stage "STAGE 4. DSL JOB"
+   stage "STAGE 4. DSL JOB create"
    jobDsl scriptText: 
    '''
-   
-   // Set name\'s for MultiPhase jobs
-   def CMS_DEPLOY_manual = \'CMS_DEPLOY_ansible\'
-   def CDS_DEPLOY_manual = \'CDS_DEPLOY_ansible\'
-   def WAS_DEPLOY_manual = \'WAS_DEPLOY_ansible\'
-   def RTA_DEPLOY_manual = \'RTA_DEPLOY_ansible\'
-   def OLA_DEPLOY_manual = \'OLA_DEPLOY_ansible\'
-   
+ 
    job(\'Dima_pipeline\') {
     description(\'Dima_pipeline\')
     concurrentBuild()
@@ -37,5 +30,6 @@ node {
     }
    }
    '''
-   
+   stage "STAGE 5. DSL JOB run"
+   build 'Dima_pipeline'
 }
