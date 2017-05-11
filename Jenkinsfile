@@ -56,7 +56,7 @@ node {
 
    for (int i = 0; i < 2; i++) {
       def index = i 
-      branches["branch${i}"] = "build Dima_pipeline${i}"
+      branches["branch${i}"] = 'build "Dima_pipeline${i}"'
     }
    echo "${branches}"
    parallel branches
