@@ -32,4 +32,14 @@ node {
    '''
    stage "STAGE 5. DSL JOB run"
    build 'Dima_pipeline'
+   
+   stage "STAGE 6"
+   def branches = [:]
+
+   for (int i = 0; i < 4; i++) {
+      def index = i //if we tried to use i below, it would equal 4 in each job execution.
+      branches["branch${i}"] = "atata-${i}"
+   }
+   echo branches
+   echo ${branches}
 }
