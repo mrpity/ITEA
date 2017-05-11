@@ -13,12 +13,12 @@ node {
    def TVAR = 'atatata'
    echo "variable: ${TVAR}"
    
-   stage "STAGE 4. DSL JOB create"
+   stage "STAGE 4. DSL JOB create 1"
    jobDsl scriptText: 
    '''
  
-   job(\'Dima_pipeline\') {
-    description(\'Dima_pipeline\')
+   job(\'Dima_pipeline1\') {
+    description(\'Dima_pipeline1\')
     concurrentBuild()
     wrappers {
         colorizeOutput()
@@ -30,15 +30,35 @@ node {
     }
    }
    '''
-   stage "STAGE 5. DSL JOB run"
-   build 'Dima_pipeline'
+      stage "STAGE 5. DSL JOB create 2"
+   jobDsl scriptText: 
+   '''
+ 
+   job(\'Dima_pipeline2\') {
+    description(\'Dima_pipeline2\')
+    concurrentBuild()
+    wrappers {
+        colorizeOutput()
+        timestamps()
+        buildName(\'test\')
+    }
+    steps {
+       shell(\'echo "success"\')
+    }
+   }
+   '''
+   
+  // stage "STAGE 5. DSL JOB run"
+   //build 'Dima_pipeline'
    
    stage "STAGE 6"
    def branches = [:]
 
-   for (int i = 0; i < 4; i++) {
+   for (int i = 0; i < 2; i++) {
       def index = i 
-      branches["branch${i}"] = "atata-${i}"
+      branches["branch${i}"] = "Dima_pipeline${i}"
     }
    echo "${branches}"
+   
+   
 }
