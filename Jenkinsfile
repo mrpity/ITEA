@@ -1,7 +1,9 @@
 node {
-   echo 'Hello World'
-//   input message: "Deploy or not?"
-
-    stage "STAGE 1"
-    echo "Prigt Stage 1"
+   
+   stage "Chechout"
+   //git git@bitbucket.org:whirlsoftware/whirl_ansible.git
+   git branch: 'master', credentialsId: 'jenkins-ci', url: 'ssh://git@bitbucket.org:whirlsoftware/whirl_ansible.git'
+   
+   stage "STAGE 1"
+   echo "Prigt Stage 1"
 }
