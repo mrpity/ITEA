@@ -40,5 +40,5 @@ node {
       def index = i 
       branches["branch${i}"] = "atata-${i}"
     }
-   echo ${branches}
+   echo "${branches}"
 }
