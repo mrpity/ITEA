@@ -59,6 +59,7 @@ node {
       branches["branch${i}"] = "Dima_pipeline${i}"
     }
    echo "${branches}"
+   parallel branches
    
    
 }
