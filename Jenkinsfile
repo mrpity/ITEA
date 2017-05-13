@@ -4,9 +4,10 @@ node {
    //git git@bitbucket.org:whirlsoftware/whirl_ansible.git
    git branch: 'master',  url: 'git@bitbucket.org:whirlsoftware/whirl_ansible.git'
    
-   stage "STAGE 2. Print"
+   stage ("STAGE 2. Print") {
    echo "Prigt Stage 1"
-   
+   }
+      
    stage "STAGE 3. Print envs variables"
    echo "JAVA_HOME: ${env.JAVA_HOME}"
    echo "My test: ${env.TEST_VAR}"
@@ -51,7 +52,7 @@ node {
   // stage "STAGE 5. DSL JOB run"
    //build 'Dima_pipeline'
    
-   stage "STAGE 6"
+   /* stage "STAGE 6"
    def branches = [:]
 
    for (int i = 0; i < 2; i++) {
@@ -60,6 +61,6 @@ node {
     }
    echo "${branches}"
    parallel branches
-   
+   */
    
 }
