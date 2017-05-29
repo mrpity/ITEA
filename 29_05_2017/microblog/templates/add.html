@@ -1,0 +1,9 @@
+{% extends 'index.html' %}
+{% block content%}
+<h2>Add</h2>
+<form method="post">
+    <p><input type="text" name="post" value="{{post}}" placeholder="Post"></p>
+    <p><input type="text" name="name" value="{{name}}" placeholder="Name"></p>
+    <p><input type="submit" value="OK"></p>
+</form>
+{% endblock%}
