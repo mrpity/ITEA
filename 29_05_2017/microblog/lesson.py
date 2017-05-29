@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)  ## __name__ что бы привязать фласк с текущей директории
 
@@ -16,7 +16,7 @@ def add():
         post =  request.form.get('post', '')
         name = request.form.get('name', '')
         if post and name:
-            print('!!!')
+            return redirect('/')
     return render_template('add.html', name=name, post=post)
 
 if __name__ == '__main__':
