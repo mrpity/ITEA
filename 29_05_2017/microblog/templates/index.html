@@ -4,8 +4,18 @@
     </head>
     <body>
         <h1>Hello</h1>
+        <p>{{ message }}</p>
         {% block content %}
         <a href="/add">Add</a>
+        {% if postss %}
+        <ul>
+        {% for post in postss %}
+            <li><b>{{ post.1}}:</b> {{ post.2 }}</li>
+        {% endfor %}
+            </ul>
+        {% else %}
+        <p>There are no posts here</p>
+        {% endif %}
         {% endblock %}
         {% include 'copy.html' %}
     </body>
