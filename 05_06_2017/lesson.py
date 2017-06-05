@@ -1,6 +1,9 @@
 import csv
 # import profile
 
+#### Профилировщики
+# line_prifiler, memory_profiler, pympler
+
 #@profile   #--- нужно профилировать тут функцию для которой хотим применинть line_profile. kernprog -l script.py
 def load():
     res = []
