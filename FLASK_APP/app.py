@@ -14,8 +14,9 @@ def user(): pass
 def show_user_profile(username):
     # show user profile
     # return 'User: %s' % username
-    return render_template('visual.html', name=username)
+     return render_template('visual.html', name=username)
+
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5001)
+    app.run(host='flask-app.dev.whirl.sg', port=5001)
