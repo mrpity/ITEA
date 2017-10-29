@@ -32,12 +32,15 @@ def prepare_root():
         root = tkinter.Tk()
         lab = tkinter.Label(root, text="WARNING!\nMemory limit: {}GB".format(current_mem), font="Arial 18")
         lab.pack()
-    return root
+        return root
 
 '''RUN app. check interval: 5 seconds'''
 def main_loop():
     while True:
-        prepare_root().mainloop()
+        try:
+            prepare_root().mainloop()
+        except Exception as e:
+            print('ERROR: {}'.format(e))
         time.sleep(5)
 
 if __name__ == '__main__':
