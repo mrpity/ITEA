@@ -1,7 +1,8 @@
 import tkinter
-import subprocess, os
+import subprocess
 import time
 
+''' GET TOTAL USED MEMORY FROM LOCALHOST'''
 def get_mem():
     first = ["free", "-h", "-t"]
     second = ["grep", "Total"]
@@ -13,14 +14,15 @@ def get_mem():
     p4 = subprocess.Popen(fourth, stdin=p3.stdout, stdout=subprocess.PIPE)
     return float(p4.stdout.read())
 
+'''Check if memory using isn't high than 2.7 GB'''
 def check_mem(memory):
-    if memory >= 2.6:
+    if memory >= 2.7:
         return True
     else:
         return False
 
+''' Create GUI table'''
 def prepare_root():
-
     try:
         current_mem = get_mem()
     except Exception as e:
@@ -30,12 +32,9 @@ def prepare_root():
         root = tkinter.Tk()
         lab = tkinter.Label(root, text="WARNING!\nMemory limit: {}GB".format(current_mem), font="Arial 18")
         lab.pack()
-    else:
-        root = tkinter.Tk()
-        lab = tkinter.Label(root, text="OK!\nMemory limit: {}GB".format(current_mem), font="Arial 18")
-        lab.pack()
     return root
 
+'''RUN app. check interval: 5 seconds'''
 def main_loop():
     while True:
         prepare_root().mainloop()
