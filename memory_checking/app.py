@@ -1,7 +1,8 @@
 import tkinter
 import subprocess, os
+import time
 
-def check_mem():
+def get_mem():
     first = ["free", "-h", "-t"]
     second = ["grep", "Total"]
     third = ["awk", "{print $3}"]
@@ -12,21 +13,34 @@ def check_mem():
     p4 = subprocess.Popen(fourth, stdin=p3.stdout, stdout=subprocess.PIPE)
     return float(p4.stdout.read())
 
-def prepare_icon():
+def check_mem(memory):
+    if memory >= 2.6:
+        return True
+    else:
+        return False
+
+def prepare_root():
 
     try:
-        current_mem = check_mem()
+        current_mem = get_mem()
     except Exception as e:
         print("Cann't get float value from subprocess PIPE. ERROR: {}".format(e))
 
-    root = tkinter.Tk()
-    lab = tkinter.Label(root, text="WARNING!\nMemory limit: {}".format(current_mem), font="Arial 18")
-    lab.pack()
+    if check_mem(current_mem):
+        root = tkinter.Tk()
+        lab = tkinter.Label(root, text="WARNING!\nMemory limit: {}GB".format(current_mem), font="Arial 18")
+        lab.pack()
+    else:
+        root = tkinter.Tk()
+        lab = tkinter.Label(root, text="OK!\nMemory limit: {}GB".format(current_mem), font="Arial 18")
+        lab.pack()
     return root
 
-
-
+def main_loop():
+    while True:
+        prepare_root().mainloop()
+        time.sleep(5)
 
 if __name__ == '__main__':
-    prepare_icon().mainloop()
+    main_loop()
     
