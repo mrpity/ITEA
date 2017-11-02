@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+#coding: utf_8
+
 import json, requests
 import time
 import subprocess
@@ -5,7 +8,8 @@ import argparse
 
 class main():
 
-    """You should unsure that mesos-dns is installed on host, where script will be executed. 
+    """Requirements: pip install requests.
+    You should unsure that mesos-dns is installed on host, where script will be executed. 
     Or you should have a possibility to resolve {leader.mesos}. 
     Check will be executed every 10 seconds.
     Run: 'python3.5 app.py -h' for help.
