@@ -1,12 +1,13 @@
 import json, requests
-import time, datetime
+import time
+import subprocess
 
 class main():
 
     def __init__(self):
 
         # Set variables:
-        self.mesos_url = "http://m1-qa1.dev.whirl.sg:5050/master/frameworks"
+        self.mesos_url = "m1-qa1.dev.whirl.sg:5050"
         self.get_url = None
         self.json_object = None
         self.framework_dict = {}
@@ -17,7 +18,7 @@ class main():
 
     def GetUrl(self):
         try:
-            self.get_url = requests.get(self.mesos_url)
+            self.get_url = requests.get("http://{}/master/frameworks".format(self.mesos_url))
         except Exception as e:
             print('Could not get url: {}. ERROR: {}'.format(self.mesos_url, e))
 
@@ -35,8 +36,13 @@ class main():
 
     def RemoveMesosFramework(self):
         for framework in self.framework_inactive_list:
-            # link_to_remove = 'echo "frameworkId={}" | curl -d@- -X POST http://leader.mesos:5050/master/teardown'.format(framework)
             print("Framework_id: {} will be removed".format(framework))
+
+            first = ["echo", "frameworkId={}".format(framework)]
+            second = ["curl", "-d@-", "-X", "POST", "http://{}/master/teardown".format(self.mesos_url)]
+            p1 = subprocess.Popen(first, stdout=subprocess.PIPE)
+            p2 = subprocess.Popen(second, stdin=p1.stdout, stdout=subprocess.PIPE)
+            print(p2.stdout.read())
 
     def Controller(self):
         while True:
