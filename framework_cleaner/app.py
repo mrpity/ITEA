@@ -19,7 +19,7 @@ class main():
 
         # Set variables:
         self.mesos_master = "leader.mesos"
-        self.check_timeout = "10"
+        self.check_timeout = "30"
         self.get_url = None
         self.json_object = None
         self.framework_dict = {}
@@ -35,7 +35,7 @@ class main():
             self.get_url = requests.get("http://{}:5050/master/frameworks".format(self.mesos_master))
         except Exception as e:
             print('Could not get url: {}. ERROR: {}'.format(self.mesos_master, e))
-            time.sleep(10)
+            time.sleep(30)
             self.GetUrl()
 
     def CreateJson(self):
@@ -63,7 +63,7 @@ class main():
     def createParser(self):
         parser = argparse.ArgumentParser()
         parser.add_argument('-m', '--mesos_host', default='leader.mesos', help='Specify mesos master host')
-        parser.add_argument('-t', '--timeout', default='20', help='Set check timeout')
+        parser.add_argument('-t', '--timeout', default='30', help='Set check timeout')
         self.check_timeout = parser.parse_args().timeout
         self.mesos_master = parser.parse_args().mesos_host
 
