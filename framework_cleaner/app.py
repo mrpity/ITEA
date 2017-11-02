@@ -45,6 +45,7 @@ class main():
             if not framework['active']:
                 self.framework_inactive_list.append(framework['id'])
 
+
     def RemoveMesosFramework(self):
         for framework in self.framework_inactive_list:
             print("Framework_id: {} will be removed".format(framework))
@@ -68,6 +69,7 @@ class main():
             self.CreateFrameworkDict()
             if self.framework_inactive_list:
                 self.RemoveMesosFramework()
+                del self.framework_inactive_list[:]
             time.sleep(int("{}".format(self.check_timeout)))
 
 if __name__ == "__main__":
