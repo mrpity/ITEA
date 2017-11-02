@@ -1,6 +1,7 @@
 import json, requests
 import time
 import subprocess
+import argparse
 
 class main():
 
@@ -12,20 +13,25 @@ class main():
     def __init__(self):
 
         # Set variables:
-        self.mesos_url = "m1-qa1.dev.whirl.sg:5050"
+        self.mesos_master = "leader.mesos"
+        self.check_timeout = "10"
         self.get_url = None
         self.json_object = None
         self.framework_dict = {}
         self.framework_inactive_list = []
 
+        # Parse CLI args
+        self.createParser()
         # Initializing
         self.Controller()
 
     def GetUrl(self):
         try:
-            self.get_url = requests.get("http://{}/master/frameworks".format(self.mesos_url))
+            self.get_url = requests.get("http://{}:5050/master/frameworks".format(self.mesos_master))
         except Exception as e:
-            print('Could not get url: {}. ERROR: {}'.format(self.mesos_url, e))
+            print('Could not get url: {}. ERROR: {}'.format(self.mesos_master, e))
+            time.sleep(10)
+            self.GetUrl()
 
     def CreateJson(self):
         try:
@@ -44,20 +50,25 @@ class main():
             print("Framework_id: {} will be removed".format(framework))
 
             first = ["echo", "frameworkId={}".format(framework)]
-            second = ["curl", "-d@-", "-X", "POST", "http://{}/master/teardown".format(self.mesos_url)]
+            second = ["curl", "-d@-", "-X", "POST", "http://{}:5050/master/teardown".format(self.mesos_master)]
             p1 = subprocess.Popen(first, stdout=subprocess.PIPE)
             p2 = subprocess.Popen(second, stdin=p1.stdout, stdout=subprocess.PIPE)
-            print(p2.stdout.read())
+
+    def createParser(self):
+        parser = argparse.ArgumentParser()
+        parser.add_argument('-m', '--mesos_host', default='leader.mesos', help='Specify mesos master host')
+        parser.add_argument('-t', '--timeout', default='20', help='Set check timeout')
+        self.check_timeout = parser.parse_args().timeout
+        self.mesos_master = parser.parse_args().mesos_host
 
     def Controller(self):
         while True:
             self.GetUrl()
             self.CreateJson()
             self.CreateFrameworkDict()
-            time.sleep(10)
             if self.framework_inactive_list:
                 self.RemoveMesosFramework()
-
+            time.sleep(int("{}".format(self.check_timeout)))
 
 if __name__ == "__main__":
         run = main()
