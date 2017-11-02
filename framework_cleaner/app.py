@@ -4,6 +4,11 @@ import subprocess
 
 class main():
 
+    """You should unsure that mesos-dns is installed on host, where script will be executed. 
+    Or you should have a possibility to resolve {leader.mesos}. 
+    Check will be executed every 10 seconds.
+    """
+
     def __init__(self):
 
         # Set variables:

@@ -46,8 +46,8 @@
       <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/framework_cleaner/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="49" column="29" lean-forward="true" selection-start-line="49" selection-start-column="29" selection-end-line="50" selection-end-column="38" />
+            <state relative-caret-position="272">
+              <caret line="16" column="31" lean-forward="true" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -565,7 +565,14 @@
       <option name="project" value="LOCAL" />
       <updated>1509633972409</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="added subprocess to remove inactive frameworks">
+      <created>1509634632165</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1509634632165</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -614,7 +621,8 @@
     <MESSAGE value="added template rendering to flask app" />
     <MESSAGE value="set FQDN for flask app. add in local hosts record for FQDN" />
     <MESSAGE value="added script to check inactive frameworks" />
-    <option name="LAST_COMMIT_MESSAGE" value="added script to check inactive frameworks" />
+    <MESSAGE value="added subprocess to remove inactive frameworks" />
+    <option name="LAST_COMMIT_MESSAGE" value="added subprocess to remove inactive frameworks" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -843,8 +851,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/framework_cleaner/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="49" column="29" lean-forward="true" selection-start-line="49" selection-start-column="29" selection-end-line="50" selection-end-column="38" />
+        <state relative-caret-position="272">
+          <caret line="16" column="31" lean-forward="true" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
