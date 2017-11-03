@@ -53,7 +53,7 @@ class main():
 
     def RemoveMesosFramework(self):
         for framework in self.framework_inactive_list:
-            print("Framework_id: {} will be removed".format(framework))
+            print("Framework_id: {} will be shutdown".format(framework))
 
             first = ["echo", "frameworkId={}".format(framework)]
             second = ["curl", "-d@-", "-X", "POST", "http://{}:5050/master/teardown".format(self.mesos_master)]
