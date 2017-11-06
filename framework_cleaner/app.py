@@ -1,13 +1,13 @@
 #!/usr/bin/env python
-#coding: utf_8
+# coding: utf_8
 
 import json, requests
-import time
+import time, sys
 import subprocess
 import argparse
 
-class main():
 
+class main():
     """Requirements: pip install requests.
     You should unsure that mesos-dns is installed on host, where script will be executed. 
     Or you should have a possibility to resolve {leader.mesos}. 
@@ -19,12 +19,14 @@ class main():
 
         # Set variables:
         self.mesos_master = "leader.mesos"
-        self.check_timeout = "30"
+        self.check_timeout = "60"
         self.get_url = None
         self.json_object = None
         self.framework_dict = {}
         self.framework_inactive_list = []
 
+        # Set Unbuffered stdout
+        sys.stdout = Unbuffered(sys.stdout)
         # Parse CLI args
         self.createParser()
         # Initializing
@@ -35,7 +37,7 @@ class main():
             self.get_url = requests.get("http://{}:5050/master/frameworks".format(self.mesos_master))
         except Exception as e:
             print('Could not get url: {}. ERROR: {}'.format(self.mesos_master, e))
-            time.sleep(30)
+            time.sleep(60)
             self.GetUrl()
 
     def CreateJson(self):
@@ -46,10 +48,9 @@ class main():
 
     def CreateFrameworkDict(self):
         for framework in self.json_object['frameworks']:
-            self.framework_dict[framework['id']] = {framework['name']:framework['active']}
+            self.framework_dict[framework['id']] = {framework['name']: framework['active']}
             if not framework['active']:
                 self.framework_inactive_list.append(framework['id'])
-
 
     def RemoveMesosFramework(self):
         for framework in self.framework_inactive_list:
@@ -63,7 +64,7 @@ class main():
     def createParser(self):
         parser = argparse.ArgumentParser()
         parser.add_argument('-m', '--mesos_host', default='leader.mesos', help='Specify mesos master host')
-        parser.add_argument('-t', '--timeout', default='30', help='Set check timeout')
+        parser.add_argument('-t', '--timeout', default='60', help='Set check timeout')
         self.check_timeout = parser.parse_args().timeout
         self.mesos_master = parser.parse_args().mesos_host
 
@@ -75,9 +76,32 @@ class main():
             if self.framework_inactive_list:
                 self.RemoveMesosFramework()
                 del self.framework_inactive_list[:]
+            else:
+                print("Keep watching. No frameworks in inactive state")
             time.sleep(int("{}".format(self.check_timeout)))
 
+
+class Unbuffered(object):
+    """This Class give a possibility not to buffer stdout.
+    It helps execute print statement immediately.
+    """
+
+    def __init__(self, stream):
+        self.stream = stream
+
+    def write(self, data):
+        self.stream.write(data)
+        self.stream.flush()
+
+    def writelines(self, datas):
+        self.stream.writelines(datas)
+        self.stream.flush()
+
+    def __getattr__(self, attr):
+        return getattr(self.stream, attr)
+
+
 if __name__ == "__main__":
-        run = main()
+    run = main()
 
 
