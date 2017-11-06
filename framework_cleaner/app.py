@@ -5,7 +5,7 @@ import json, requests
 import time, sys
 import subprocess
 import argparse
-
+from pympler import muppy, summary
 
 class main():
     """Requirements: pip install requests.
@@ -76,9 +76,17 @@ class main():
             if self.framework_inactive_list:
                 self.RemoveMesosFramework()
                 del self.framework_inactive_list[:]
+#                self.memory_check()
             else:
                 print("Keep watching. No frameworks in inactive state")
+#                self.memory_check()
             time.sleep(int("{}".format(self.check_timeout)))
+
+    def memory_check(self):
+        '''This func adds ability to measure memory consumption by all objects'''
+        all_objects = muppy.get_objects()
+        sum = summary.summarize(all_objects)
+        summary.print_(sum)
 
 
 class Unbuffered(object):
