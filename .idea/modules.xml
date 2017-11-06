@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ITEA.iml" filepath="$PROJECT_DIR$/.idea/ITEA.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../bitbucket/whirl_devops/ci_python_scripts/.idea/ci_python_scripts.iml" filepath="$PROJECT_DIR$/../../bitbucket/whirl_devops/ci_python_scripts/.idea/ci_python_scripts.iml" />
-    </modules>
-  </component>
-</project>
