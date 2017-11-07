@@ -6,6 +6,7 @@ import time, sys
 import subprocess
 import argparse
 from pympler import muppy, summary
+import datetime
 
 class main():
     """Requirements: pip install requests.
@@ -54,7 +55,7 @@ class main():
 
     def RemoveMesosFramework(self):
         for framework in self.framework_inactive_list:
-            print("Framework_id: {} will be shutdown".format(framework))
+            print("[{:%Y-%m-%d %H:%M:%S}]: INFO: Framework_id: {} will be shutdown".format(datetime.datetime.now(), framework))
 
             first = ["echo", "frameworkId={}".format(framework)]
             second = ["curl", "-d@-", "-X", "POST", "http://{}:5050/master/teardown".format(self.mesos_master)]
@@ -78,7 +79,7 @@ class main():
                 del self.framework_inactive_list[:]
 #                self.memory_check()
             else:
-                print("Keep watching. No frameworks in inactive state")
+                print('[{:%Y-%m-%d %H:%M:%S}]: INFO: Keep watching. No frameworks in inactive state'.format(datetime.datetime.now()))
 #                self.memory_check()
             time.sleep(int("{}".format(self.check_timeout)))
 
