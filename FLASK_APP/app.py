@@ -44,6 +44,14 @@ def get_one_star(name):
   return jsonify({'result' : output})
 
 
+@app.route('/star', methods=['GET'])
+def get_all_stars():
+  star = mongo.db.stars
+  output = []
+  for s in star.find():
+    output.append({'name' : s['name'], 'distance' : s['distance']})
+  return jsonify({'result' : output})
+
 if __name__ == '__main__':
     app.run(host='flask-app.dev.whirl.sg', port=5001, debug=True)
 
