@@ -1,5 +1,5 @@
 - job:
-    name: jenkins-builder-job-pity
+    name: jenkins-builder-WDBS-deploy
     project-type: pipeline
     sandbox: true
     parameters:
@@ -26,4 +26,4 @@
             credentials-id: '87657576578657685'
             branches:
               -  '*/${DEVOPS_BR}'
-      script-path: 'pipelines/shared_lib/Jenkinsfile'
+      script-path: 'pipelines/WDBS_DEPLOY/Jenkinsfile'
