@@ -19,12 +19,17 @@
       - string:
           name: DBS_LICENSE
           default: 'f319-97ba-9845-b492-1f43-5651-6a4e-daba'
-      - dynamic-choice:
-          name: OPTIONS
-          description: "Available options"
-          script: "['optionA', 'optionB']"
-          remote: false
-          read-only: false
+      - active-choice:
+          project: 'jenkins-builder-WDBS-deploy'
+          name: CASCADE_CHOICE
+          script: |
+            return ['foo:selected', 'bar']
+          description: "A parameter named CASCADE_CHOICE which options foo and bar."
+          visible-item-count: 1
+          fallback-script: |
+            return ['Something Wrong']
+          reference: STR_PARAM
+          choice-type: single
       - choice:
           name: project
           choices:
@@ -34,7 +39,7 @@
           name: OPTIONS
           description: "Available options"
           type: 'single-select'
-          value: OptionA,OptionB,OptionC
+          groovyscript: "['optionA', 'optionB']"
     pipeline-scm:
       scm:
         - git:
@@ -43,3 +48,8 @@
             branches:
               -  '*/${DEVOPS_BR}'
       script-path: 'pipelines/WDBS_DEPLOY/Jenkinsfile'
+
+
+
+# https://pypi.python.org/pypi/jenkins-job-builder-active-choice
+# https://github.com/bgaifullin/jenkins-job-builder-active-choice/issues/1  It doesn't work for JBB 2.0.0
