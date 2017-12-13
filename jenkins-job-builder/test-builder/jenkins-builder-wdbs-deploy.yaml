@@ -19,6 +19,17 @@
       - string:
           name: DBS_LICENSE
           default: 'f319-97ba-9845-b492-1f43-5651-6a4e-daba'
+      - dynamic-choice:
+          name: OPTIONS
+          description: "Available options"
+          script: "['optionA', 'optionB']"
+          remote: false
+          read-only: false
+      - choice:
+          name: project
+          choices:
+            - nova
+            - glance
     pipeline-scm:
       scm:
         - git:
