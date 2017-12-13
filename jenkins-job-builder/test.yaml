@@ -3,7 +3,7 @@
     project-type: pipeline
     pipeline:
       script-path: subdir/Jenkinsfile # path to pipeline script definition, "Jenkinsfile" by default.
-      scm: # normal scm definitions
+      pipeline-scm: # normal scm definitions
         - git:
             branches:
               - '*/maser'
