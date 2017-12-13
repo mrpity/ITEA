@@ -1,10 +1,11 @@
 - job:
-    name: test-job
+    name: jenkins-builder-job-pity
     project-type: pipeline
     sandbox: true
     pipeline-scm:
       scm:
-        - hg:
-            url: http://hg.example.org/test_job
-            clean: true
+        - git:
+            url: http://git-cache.dev.whirl.sg:9909/bitbucket.org/whirlsoftware/whirl_devops
+            branches:
+              -  '*/${DEVOPS_BR}'
       script-path: Jenkinsfile.groovy
