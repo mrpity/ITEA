@@ -41,6 +41,8 @@
           reference: ''
           choice-type: single
           filterable: True
+    logrotate:
+      numToKeep: 10
     pipeline-scm:
       scm:
         - git:
