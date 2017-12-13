@@ -19,22 +19,28 @@
       - string:
           name: DBS_LICENSE
           default: 'f319-97ba-9845-b492-1f43-5651-6a4e-daba'
-      - active-choice:
+      - cascade-choice:
           project: 'jenkins-builder-WDBS-deploy'
           name: CASCADE_CHOICE
           script: |
-            return ['foo:selected', 'bar']
+              import groovy.json.JsonSlurperClassic
+
+              def addr       = "https://harbor.whirl.sg/api/repositories/ias/app/tags"
+              def authString = 'jenkins:AQ!SW@de3?'.getBytes().encodeBase64().toString()
+
+              def conn = addr.toURL().openConnection()
+              conn.setRequestProperty( "Authorization", "Basic ${authString}" )
+              if( conn.responseCode == 200 ) {
+                def data = new JsonSlurperClassic().parseText( conn.content.text )
+                return data.name
+
+              }
           description: "A parameter named CASCADE_CHOICE which options foo and bar."
           visible-item-count: 1
           fallback-script: |
             return ['Something Wrong']
           reference: STR_PARAM
           choice-type: single
-      - choice:
-          name: project
-          choices:
-            - nova
-            - glance
       - extended-choice:
           name: OPTIONS
           description: "Available options"
@@ -53,3 +59,8 @@
 
 # https://pypi.python.org/pypi/jenkins-job-builder-active-choice
 # https://github.com/bgaifullin/jenkins-job-builder-active-choice/issues/1  It doesn't work for JBB 2.0.0
+
+# vim /tmp/test-builder/lib/python3.5/site-packages/jenkins_jobs_active_choice/active_choice.py
+#   if not isinstance(x, (str)):
+#    if not isinstance(x, (str, unicode)):
+
