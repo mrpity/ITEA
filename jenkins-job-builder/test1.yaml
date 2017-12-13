@@ -1,7 +1,7 @@
 - job:
-    name: test-job
+    name: my-jenkins-builder-job
     project-type: pipeline
-    sandbox: true
+    sandbox: false
     pipeline-scm:
       scm:
         - hg:
