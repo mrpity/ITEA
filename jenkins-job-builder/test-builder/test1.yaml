@@ -6,6 +6,7 @@
       scm:
         - git:
             url: http://git-cache.dev.whirl.sg:9909/bitbucket.org/whirlsoftware/whirl_devops
+            credentials-id: '87657576578657685'
             branches:
               -  '*/${DEVOPS_BR}'
-      script-path: Jenkinsfile.groovy
+      script-path: 'pipelines/shared_lib/Jenkinsfile'
