@@ -30,6 +30,11 @@
           choices:
             - nova
             - glance
+      - extended-choice:
+          name: OPTIONS
+          description: "Available options"
+          type: 'single-select'
+          value: OptionA,OptionB,OptionC
     pipeline-scm:
       scm:
         - git:
