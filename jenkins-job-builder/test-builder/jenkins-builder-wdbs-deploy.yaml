@@ -41,11 +41,7 @@
             return ['Something Wrong']
           reference: STR_PARAM
           choice-type: single
-      - extended-choice:
-          name: OPTIONS
-          description: "Available options"
-          type: 'single-select'
-          groovyscript: "['optionA', 'optionB']"
+          filterable: True
     pipeline-scm:
       scm:
         - git:
