@@ -2,6 +2,23 @@
     name: jenkins-builder-job-pity
     project-type: pipeline
     sandbox: true
+    parameters:
+      - maven-metadata:
+          name: 'DBS_VERSION'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'wdbs'
+          packaging: 'tgz'
+          versions-filter: '^.*dbs.*'
+          default-value: 'FIRST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - string:
+          name: DEVOPS_BR
+          default: '${DEFAULT_DEVOPS_BRANCH}'
+      - string:
+          name: DBS_LICENSE
+          default: 'f319-97ba-9845-b492-1f43-5651-6a4e-daba'
     pipeline-scm:
       scm:
         - git:
