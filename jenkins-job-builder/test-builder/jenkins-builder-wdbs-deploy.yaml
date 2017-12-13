@@ -21,7 +21,7 @@
           default: 'f319-97ba-9845-b492-1f43-5651-6a4e-daba'
       - cascade-choice:
           project: 'jenkins-builder-WDBS-deploy'
-          name: CASCADE_CHOICE
+          name: IAS_VERSION
           script: |
               import groovy.json.JsonSlurperClassic
 
@@ -35,11 +35,10 @@
                 return data.name
 
               }
-          description: "A parameter named CASCADE_CHOICE which options foo and bar."
           visible-item-count: 1
           fallback-script: |
             return ['Something Wrong']
-          reference: STR_PARAM
+          reference: ''
           choice-type: single
           filterable: True
     pipeline-scm:
