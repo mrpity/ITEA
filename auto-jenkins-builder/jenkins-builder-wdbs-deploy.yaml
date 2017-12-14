@@ -74,22 +74,4 @@
 # https://pypi.python.org/pypi/jenkins-job-builder-active-choice
 # https://github.com/bgaifullin/jenkins-job-builder-active-choice/issues/1  It doesn't work for JBB 2.0.0
 
-# vim /tmp/test-builder/lib/python3.5/site-packages/jenkins_jobs_active_choice/active_choice.py
-#   if not isinstance(x, (str)):
-#    if not isinstance(x, (str, unicode)):
-
-
-
-##
-#vim local/lib/python2.7/site-packages/jenkins_jobs_addons/views.py
-#
-#    # def gen_xml(self, parser, xml_parent, data):
-#    #     views = XML.SubElement(xml_parent, 'views')
-#    #     for view in data.get('views', []):
-#    #         self.registry.dispatch('view', parser, views, view)
-#
-#    def gen_xml(self, xml_parent, data):
-#        views = XML.SubElement(xml_parent, 'views')
-#        for view in data.get('views', []):
-#            self.registry.dispatch('view', views, view)
 
