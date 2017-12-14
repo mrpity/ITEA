@@ -60,6 +60,15 @@
     filter-queue: false
     job-name:
         - jenkins-builder-WDBS-deploy
+    columns:
+        - status
+        - weather
+        - job
+        - last-success
+        - last-failure
+        - last-duration
+        - last-duration
+        - build-button
 
 
 # https://pypi.python.org/pypi/jenkins-job-builder-active-choice

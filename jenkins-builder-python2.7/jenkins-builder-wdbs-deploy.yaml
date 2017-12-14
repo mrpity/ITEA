@@ -60,6 +60,7 @@
     filter-queue: false
     job-name:
         - jenkins-builder-WDBS-deploy
+    columns: ['status']
 
 
 
