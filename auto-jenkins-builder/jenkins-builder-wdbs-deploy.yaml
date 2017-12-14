@@ -53,26 +53,13 @@
       script-path: 'pipelines/WDBS_DEPLOY/Jenkinsfile'
 
 - view:
-#    name: 'jenkins-builders'
-#    view-type: list
-#    description: "ATATATAT"
-#    first-job: "jenkins-builder-WDBS-deploy"
     name: jenkins-builders
     view-type: list
     description: 'Sample description'
-    filter-executors: true
-    filter-queue: true
+    filter-executors: false
+    filter-queue: false
     job-name:
         - jenkins-builder-WDBS-deploy
-        - job-name-2
-        - job-name-3
-
-#    views:
-#      - jenkins-builders:
-#          filter-executors: false
-#          filter-queue: false
-#          first-job:
-#            - 'jenkins-builder-WDBS-deploy'
 
 
 # https://pypi.python.org/pypi/jenkins-job-builder-active-choice
