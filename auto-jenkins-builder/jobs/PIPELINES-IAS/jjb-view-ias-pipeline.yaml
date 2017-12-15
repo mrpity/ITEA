@@ -6,8 +6,8 @@
     filter-executors: false
     filter-queue: false
     job-name:
-        - jjb-deploy-ias-pipeline
         - jjb-build-ias-pipeline
+        - jjb-deploy-ias-pipeline
     columns:
         - status
         - weather
@@ -18,3 +18,4 @@
         - last-duration
         - build-button
 
+### Notice. Add a new job-name on the first place of list.
