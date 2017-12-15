@@ -1,17 +1,17 @@
-- defaults:
-    name: global
-    git_url: "git@....."
+#- defaults:
+#    name: global
+#    git_url: "git@....."
 
 - job:
     name: jjb-test-job-pipeline
     project-type: pipeline
     sandbox: true
-    logrotate:
-      numToKeep: 10
-    parameters:
-      - string:
-          name: DBS_LICENSE
-          default: '{git_url}'
+#    logrotate:
+#      numToKeep: 10
+#    parameters:
+#      - string:
+#          name: DBS_LICENSE
+#          default: "{git_url}"
     pipeline-scm:
       scm:
         - git:

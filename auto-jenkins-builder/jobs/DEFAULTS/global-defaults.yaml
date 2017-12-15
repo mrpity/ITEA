@@ -1,3 +1,10 @@
 - defaults:
-    name: atata
+    name: global
     description: 'Do not edit this job through the web!'
+    string:
+        name: DBS_LICENSE
+        default: "sdasdasd"
+
+
+
+# https://dzone.com/articles/jenkins-job-builder-tutorial-ccjpe-11
