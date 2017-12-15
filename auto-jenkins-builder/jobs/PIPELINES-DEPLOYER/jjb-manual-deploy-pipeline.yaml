@@ -1,33 +1,104 @@
 ### JOBS ###
 - job:
-    name: jjb-deploy-ias-pipeline
+    name: jjb-manual-deploy-pipeline
     project-type: pipeline
     sandbox: true
     logrotate:
       numToKeep: 10
     parameters:
       - cascade-choice:
-          project: 'jjb-deploy-ias-pipeline'
-          name: IAS_VERSION
+          project: 'jjb-manual-deploy-pipeline'
+          name: ENV
           script: |
-              import groovy.json.JsonSlurperClassic
-
-              def addr       = "https://harbor.whirl.sg/api/repositories/ias/app/tags"
-              def authString = 'jenkins:AQ!SW@de3?'.getBytes().encodeBase64().toString()
-
-              def conn = addr.toURL().openConnection()
-              conn.setRequestProperty( "Authorization", "Basic ${authString}" )
-              if( conn.responseCode == 200 ) {
-                def data = new JsonSlurperClassic().parseText( conn.content.text )
-                return data.name
-
-              }
+              return[
+              "qa1","qa2","qa3","qa4", "qa5", "pity:selected","et1", "dev2", "dev8", "cim1","cim2", "cim3", "cim8"
+              ]
           visible-item-count: 1
           fallback-script: |
             return ['Something Wrong']
           reference: ''
           choice-type: single
           filterable: True
+      - maven-metadata:
+          name: 'CDS_FE_VERSION'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'client_fe'
+          packaging: 'tgz'
+          versions-filter: '^.*cds-fe.*'
+          default-value: 'FIRST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'CDS_VERSION'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'wcdsd'
+          packaging: 'tgz'
+          versions-filter: '^.*cds-be.*'
+          default-value: 'FIRST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'CMS_VERSION'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'wcmsd'
+          packaging: 'tgz'
+          versions-filter: '^.*cms-be.*'
+          default-value: 'FIRST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'CMS_FE_VERSION'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'admin_panel_fe'
+          packaging: 'tgz'
+          versions-filter: '^.*cms-fe.*'
+          default-value: 'LATEST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'CLIENT_LOCALE_VERSION'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'client_locale'
+          packaging: 'tgz'
+          versions-filter: '^.*client-locale.*'
+          default-value: 'LATEST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'ADMIN_LOCALE_VERSION'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'admin_locale'
+          packaging: 'tgz'
+          versions-filter: '^.*admin-locale.*'
+          default-value: 'LATEST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'OLA_VERSION'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'wolad'
+          packaging: 'tgz'
+          versions-filter: '^.*ola.*'
+          default-value: 'LATEST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'TAS_VERSION'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'wtasd'
+          packaging: 'tgz'
+          versions-filter: '^.*tas.*'
+          default-value: 'LATEST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
       - string:
           name: DEVOPS_BR
           default: '${DEFAULT_DEVOPS_BRANCH}'
@@ -38,5 +109,5 @@
             credentials-id: '87657576578657685'
             branches:
               -  '*/${DEVOPS_BR}'
-      script-path: 'pipelines/IAS_MANUAL_DEPLOY/Jenkinsfile'
+      script-path: 'pipelines/MANUAL_DEPLOY/Jenkinsfile'
 

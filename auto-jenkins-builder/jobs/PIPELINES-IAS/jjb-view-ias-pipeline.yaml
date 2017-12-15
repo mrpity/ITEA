@@ -1,6 +1,6 @@
 ### VIEWS ###
 - view:
-    name: jenkins-builders
+    name: jenkins-builders-ias
     view-type: list
     description: 'Jenkins View for IAS'
     filter-executors: false

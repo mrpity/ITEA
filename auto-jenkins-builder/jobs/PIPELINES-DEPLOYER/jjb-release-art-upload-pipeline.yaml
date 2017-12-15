@@ -1,31 +1,104 @@
 ### JOBS ###
 - job:
-    name: jjb-build-ias-pipeline
+    name: jjb-release-art-upload-pipeline
     project-type: pipeline
     sandbox: true
     logrotate:
       numToKeep: 10
     parameters:
+      - maven-metadata:
+          name: 'CDS_FE'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'client_fe'
+          packaging: 'tgz'
+          versions-filter: '^.*cds-fe.*'
+          default-value: 'FIRST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'CDS_BE'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'wcdsd'
+          packaging: 'tgz'
+          versions-filter: '^.*cds-be.*'
+          default-value: 'FIRST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'CMS_FE'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'admin_panel_fe'
+          packaging: 'tgz'
+          versions-filter: '^.*cms-fe.*'
+          default-value: 'FIRST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'CMS_BE'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'wcmsd'
+          packaging: 'tgz'
+          versions-filter: '^.*cms-be.*'
+          default-value: 'FIRST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'OLA'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'wolad'
+          packaging: 'tgz'
+          versions-filter: '^.*ola.*'
+          default-value: 'LATEST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'CLIENT_LOCALE_VERSION'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'client_locale'
+          packaging: 'tgz'
+          versions-filter: '^.*client-locale.*'
+          default-value: 'LATEST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'CLIENT_LOCALE'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'client_locale'
+          packaging: 'tgz'
+          versions-filter: '^.*client-locale.*'
+          default-value: 'LATEST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'ADMIN_LOCALE'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'admin_locale'
+          packaging: 'tgz'
+          versions-filter: '^.*admin-locale.*'
+          default-value: 'LATEST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'DBS'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'wdbs'
+          packaging: 'tgz'
+          versions-filter: '^.*dbs.*'
+          default-value: 'LATEST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
       - string:
           name: DEVOPS_BR
           default: '${DEFAULT_DEVOPS_BRANCH}'
-      - string:
-          name: DA_CPP_LIBS_BR
-          default: '${DA_CPP_LIBS_BR}'
-      - string:
-          name: DA_CV_BR
-          default: '${DA_CV_BR}'
-      - choice:
-          name: JOB_TYPE
-          choices:
-            - generic
-            - generic_with_env
-            - buildenv
-            - scratch
-          description: "generic: Build only app image (harbor.whirl.sg/ias/app)
-                        generic_with_env: Build environment images and app image (harbor.whirl.sg/ias/app-deps, harbor.whirl.sg/ias/buildenv and harbor.whirl.sg/ias/app)
-                        buildenv: Build only environment images (harbor.whirl.sg/ias/app-deps and harbor.whirl.sg/ias/buildenv)
-                        scratch: Build app image based on dockerhub images (nvidia/cuda:8.0-cudnn5-devel as buildenv and nvidia/cuda:8.0-cudnn5-runtime as app image)"
     pipeline-scm:
       scm:
         - git:
@@ -33,6 +106,6 @@
             credentials-id: '87657576578657685'
             branches:
               -  '*/${DEVOPS_BR}'
-      script-path: 'pipelines/ias/Jenkinsfile'
+      script-path: 'pipelines/UPLOAD_RELEASE_ARTS/Jenkinsfile'
 
 
