@@ -1,14 +1,12 @@
 ### VIEWS ###
 - view:
-    name: jenkins-builders-deployer
+    name: jenkins-builders-acore
     view-type: list
-    description: 'Jenkins View for DEPLOYER'
+    description: 'Jenkins View for ACORE'
     filter-executors: false
     filter-queue: false
     job-name:
-        - jjb-manual-deploy-pipeline
-        - jjb-release-art-upload-pipeline
-        - jjb-wdbs-deploy-pipeline
+        - jjb-acore-manual-deploy-pipeline
     columns:
         - status
         - weather
