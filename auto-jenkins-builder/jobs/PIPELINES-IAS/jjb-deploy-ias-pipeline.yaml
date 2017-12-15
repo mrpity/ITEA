@@ -40,22 +40,3 @@
               -  '*/${DEVOPS_BR}'
       script-path: 'pipelines/IAS_MANUAL_DEPLOY/Jenkinsfile'
 
-### VIEWS ###
-- view:
-    name: jenkins-builders
-    view-type: list
-    description: 'Jenkins View for IAS'
-    filter-executors: false
-    filter-queue: false
-    job-name:
-        - jjb-deploy-ias-pipeline
-    columns:
-        - status
-        - weather
-        - job
-        - last-success
-        - last-failure
-        - last-duration
-        - last-duration
-        - build-button
-
