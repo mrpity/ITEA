@@ -1,0 +1,71 @@
+### JOBS ###
+- job:
+    name: jjb-general-ci-pipeline
+    project-type: pipeline
+    sandbox: true
+    logrotate:
+      numToKeep: 10
+    parameters:
+      - string:
+          name: INVENTORY
+          default: 'ci_infra'
+      - string:
+          name: ENV
+          default: 'cid1'
+      - string:
+          name: DEVOPS_BR
+          default: '${DEFAULT_DEVOPS_BRANCH}'
+      - string:
+          name: DA_BR
+          default: '${DA_RC_BRANCH}'
+      - string:
+          name: CL_BR
+          default: '${CL_RC_BRANCH}'
+      - string:
+          name: CDS_BE_BR
+          default: '${CDS_RC_BRANCH}'
+      - string:
+          name: CMS_BE_BR
+          default: '${CMS_RC_BRANCH}'
+      - string:
+          name: CMS_FE_BR
+          default: '${FE_CMS_RC_BRANCH}'
+      - string:
+          name: CDS_FE_BR
+          default: '${FE_CDS_RC_BRANCH}'
+      - string:
+          name: OLA_BR
+          default: '${OLA_RC_BRANCH}'
+      - string:
+          name: DBS_BR
+          default: '${DBS_RC_BRANCH}'
+      - string:
+          name: TAS_NLP_BR
+          default: '${TAS_NLP_RC_BRANCH}'
+      - string:
+          name: TAS_CPP_BR
+          default: '${TAS_CPP_LIBS_RC_BRANCH}'
+      - string:
+          name: DA_CORE_BR
+          default: '${DA_CORE_RC_BRANCH}'
+      - string:
+          name: AQA_BR
+          default: '${AQA_RC_BRANCH}'
+      - string:
+          name: AQA_PROFILENAME
+          default: 'run_all_api_tests'
+      - string:
+          name: TARGET_TEST_URL
+          default: 'http://a1-cid.dev.whirl.sg/'
+      - string:
+          name: SE_BR
+          default: 'master'
+    pipeline-scm:
+      scm:
+        - git:
+            url: http://git-cache.dev.whirl.sg:9909/bitbucket.org/whirlsoftware/whirl_devops
+            credentials-id: '87657576578657685'
+            branches:
+              -  '*/${DEVOPS_BR}'
+      script-path: 'pipelines/CI_JOB/Jenkinsfile'
+
