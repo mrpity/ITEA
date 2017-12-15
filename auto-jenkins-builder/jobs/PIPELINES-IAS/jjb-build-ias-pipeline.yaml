@@ -1,33 +1,11 @@
 ### JOBS ###
 - job:
-    name: jjb-deploy-ias-pipeline
+    name: jjb-build-ias-pipeline
     project-type: pipeline
     sandbox: true
     logrotate:
       numToKeep: 10
     parameters:
-      - cascade-choice:
-          project: 'jjb-deploy-ias-pipeline'
-          name: IAS_VERSION
-          script: |
-              import groovy.json.JsonSlurperClassic
-
-              def addr       = "https://harbor.whirl.sg/api/repositories/ias/app/tags"
-              def authString = 'jenkins:AQ!SW@de3?'.getBytes().encodeBase64().toString()
-
-              def conn = addr.toURL().openConnection()
-              conn.setRequestProperty( "Authorization", "Basic ${authString}" )
-              if( conn.responseCode == 200 ) {
-                def data = new JsonSlurperClassic().parseText( conn.content.text )
-                return data.name
-
-              }
-          visible-item-count: 1
-          fallback-script: |
-            return ['Something Wrong']
-          reference: ''
-          choice-type: single
-          filterable: True
       - string:
           name: DEVOPS_BR
           default: '${DEFAULT_DEVOPS_BRANCH}'
