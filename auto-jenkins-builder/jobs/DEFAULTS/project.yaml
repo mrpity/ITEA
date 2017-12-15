@@ -1,4 +1,15 @@
-- project
-    name: some-test
+- defaults:
+    name: global
+    arch: 'i386'
+
+- project:
+    name: project-name
     jobs:
-      - test-{name}
+        - 'build-{arch}'
+        - 'build-{arch}':
+            arch: 'amd64'
+
+- job-template:
+    name: 'build-{arch}'
+    builders:
+        - shell: "echo Build arch {arch}."
