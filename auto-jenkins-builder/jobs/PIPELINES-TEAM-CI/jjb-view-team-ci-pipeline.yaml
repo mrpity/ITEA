@@ -6,9 +6,9 @@
     filter-executors: false
     filter-queue: false
     job-name:
+        - jjb-dat-ci-pipeline
         - jjb-et1-ci-pipeline
         - jjb-et2-ci-pipeline
-        - jjb-dat-ci-pipeline
     columns:
         - status
         - weather
@@ -20,3 +20,5 @@
         - build-button
 
 ### Notice. Add a new job-name on the first place of list.
+### If it doesn't help. Put not added  job at the first place and update VIEW again.
+
