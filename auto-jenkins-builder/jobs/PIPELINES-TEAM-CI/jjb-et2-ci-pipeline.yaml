@@ -1,0 +1,74 @@
+### JOBS ###
+- job:
+    name: jjb-et2-ci-pipeline
+    project-type: pipeline
+    sandbox: true
+    logrotate:
+      numToKeep: 10
+    parameters:
+      - string:
+          name: ENV
+          default: 'cim3'
+      - string:
+          name: INVENTORY
+          default: 'ci_infra'
+      - string:
+          name: DEVOPS_BR
+          default: '${DEFAULT_DEVOPS_BRANCH}'
+      - string:
+          name: CMS_FE_BR
+          default: '${FE_CMS_RC_BRANCH}'
+      - string:
+          name: CDS_FE_BR
+          default: '${FE_CDS_RC_BRANCH}'
+      - string:
+          name: AQA_BR
+          default: '${AQA_RC_BRANCH}'
+      - string:
+          name: AQA_PROFILENAME
+          default: 'run_all_api_tests'
+      - string:
+          name: TARGET_TEST_URL
+          default: 'http://a3-cim.dev.whirl.sg'
+      - string:
+          name: SE_BR
+          default: 'master'
+      - maven-metadata:
+          name: 'CDS_VERSION'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'wcdsd'
+          packaging: 'tgz'
+          versions-filter: '^.*cds-be.*'
+          default-value: 'FIRST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'CMS_VERSION'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'wcmsd'
+          packaging: 'tgz'
+          versions-filter: '^.*cms-be.*'
+          default-value: 'LATEST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+      - maven-metadata:
+          name: 'DBS_VERSION'
+          repository-base-url: 'http://artifactory.dev.whirl.sg/artifactory/QA'
+          artifact-group-id: 'com.whirl'
+          artifact-id: 'wdbs'
+          packaging: 'tgz'
+          versions-filter: '^.*dbs.*'
+          default-value: 'LATEST'
+          maximum-versions-to-display: "5"
+          sorting-order: "Ascending"
+    pipeline-scm:
+      scm:
+        - git:
+            url: http://git-cache.dev.whirl.sg:9909/bitbucket.org/whirlsoftware/whirl_devops
+            credentials-id: '87657576578657685'
+            branches:
+              -  '*/${DEVOPS_BR}'
+      script-path: 'pipelines/ET2_CI_JOB/Jenkinsfile'
+

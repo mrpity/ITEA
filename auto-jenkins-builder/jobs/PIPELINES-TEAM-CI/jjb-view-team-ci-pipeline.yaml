@@ -1,0 +1,22 @@
+### VIEWS ###
+- view:
+    name: jenkins-builders-team-ci
+    view-type: list
+    description: 'Jenkins View for TEAM CI'
+    filter-executors: false
+    filter-queue: false
+    job-name:
+        - jjb-et1-ci-pipeline
+        - jjb-et2-ci-pipeline
+        - jjb-dat-ci-pipeline
+    columns:
+        - status
+        - weather
+        - job
+        - last-success
+        - last-failure
+        - last-duration
+        - last-duration
+        - build-button
+
+### Notice. Add a new job-name on the first place of list.
