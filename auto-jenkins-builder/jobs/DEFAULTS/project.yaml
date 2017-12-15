@@ -1,15 +1,26 @@
-- defaults:
-    name: global
-    arch: 'i386'
+#- defaults:
+#    name: global
+#    arch: 'i386'
 
 - project:
-    name: project-name
+    name: build-test
     jobs:
-        - 'build-{arch}'
-        - 'build-{arch}':
-            arch: 'amd64'
+        - 'build-test'
 
 - job-template:
-    name: 'build-{arch}'
-    builders:
-        - shell: "echo Build arch {arch}."
+    name: 'build-test'
+    project-type: pipeline
+    sandbox: true
+    pipeline-scm:
+      scm:
+        - git:
+            url: http://git-cache.dev.whirl.sg:9909/bitbucket.org/whirlsoftware/whirl_devops
+            credentials-id: '87657576578657685'
+            branches:
+              -  'devops_branch'
+      script-path: '{arch}'
+
+
+
+
+## jenkins-jobs --conf ../../jenkins-builder.ini update project.yaml:defaults.yml

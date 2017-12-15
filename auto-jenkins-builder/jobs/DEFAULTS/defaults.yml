@@ -1,11 +1,12 @@
 - defaults:
     name: global
-    logrotate:
-      daysToKeep: 30
-      numToKeep: 5
-      artifactDaysToKeep: -1
-      artifactNumToKeep: -1
-    parameters:
-      - string:
-          name: DBS_LICENSE
-          default: "atatat"
+    arch: 'asdasdasda'
+#    logrotate:
+#      daysToKeep: 30
+#      numToKeep: 5
+#      artifactDaysToKeep: -1
+#      artifactNumToKeep: -1
+#    parameters:
+#      - string:
+#          name: DBS_LICENSE
+#          default: "atatat"
