@@ -1,0 +1,25 @@
+Follow this instruction to use jenkins-job builder in safety way for you OS:
+1) Create python virtualenv:
+    - virtualenv --python /usr/bin/python2.7 ${PATH_TO_ANY_FOLDER}           # ${PATH_TO_ANY_FOLDER} -- folder where virtualenv will be created.
+2) Activate virtualenv:
+    - source ${PATH_TO_ANY_FOLDER}/bin/activate
+3) Update pip:
+    - pip install --upgrade pip
+4) Install all requirements for jenkins-job builder in your virtualenv:
+    - pip install -r requirements.txt
+5) Adjust conf file for connection to jenkins host. Default file: jenkins-builder.ini
+
+
+USAGE:
+-- Testing job:
+   # jenkins-jobs --conf jenkins-builder.ini test jobs/PIPELINES-TEAM-CI/jjb-et1-ci-pipeline.yaml
+-- Creating job:
+   # jenkins-jobs --conf jenkins-builder.ini update jobs/PIPELINES-TEAM-CI/jjb-et1-ci-pipeline.yaml
+-- Removing job:
+   # jenkins-jobs --conf jenkins-builder.ini delete ${JOB_JENKINS_NAME}
+-- Creating view:
+   # jenkins-jobs --conf jenkins-builder.ini update jobs/PIPELINES-TEAM-CI/jjb-view-team-ci-pipeline.yaml
+-- Removing view:
+   # jenkins-jobs --conf jenkins-builder.ini delete ${VIEW_JENKINS_NAME}
+-- Updating all 'yamls' in folder
+   # jenkins-jobs --conf jenkins-builder.ini update jobs/PIPELINES-TEAM-CI/
