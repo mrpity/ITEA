@@ -1,0 +1,22 @@
+### VIEWS ###
+- view:
+    name: jenkins-builders-qa-tests
+    view-type: list
+    description: 'Jenkins View for QA Tests'
+    filter-executors: false
+    filter-queue: false
+    job-name:
+        - jjb-aqa-tests-pipeline
+        - jjb-se-tests-pipeline
+    columns:
+        - status
+        - weather
+        - job
+        - last-success
+        - last-failure
+        - last-duration
+        - last-duration
+        - build-button
+
+### Notice. Add a new job-name on the first place of list.
+### If it doesn't help. Put unadded job at the first place and update VIEW again.

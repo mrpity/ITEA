@@ -1,0 +1,29 @@
+### JOBS ###
+- job:
+    name: jjb-aqa-tests-pipeline
+    project-type: pipeline
+    sandbox: true
+    logrotate:
+      numToKeep: 10
+    parameters:
+      - string:
+          name: AQA_BR
+          default: ''
+      - string:
+          name: AQA_PROFILENAME
+          default: ''
+      - string:
+          name: TARGET_TEST_URL
+          default: ''
+      - string:
+          name: DEVOPS_BR
+          default: ''
+    pipeline-scm:
+      scm:
+        - git:
+            url: http://git-cache.dev.whirl.sg:9909/bitbucket.org/whirlsoftware/whirl_devops
+            credentials-id: '87657576578657685'
+            branches:
+              -  '*/${DEVOPS_BR}'
+      script-path: 'pipelines/aqa_tests/Jenkinsfile'
+
