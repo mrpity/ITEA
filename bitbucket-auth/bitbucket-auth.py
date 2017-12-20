@@ -43,14 +43,19 @@ def main():
 def main1():
     client_id = "9FVKRtLkHUgMQpb8zU"
     client_secret = "RQ3qH3LyvPBtGZPJpyZBfNLNmTCwAjLu"
+    auth_uri = "https://bitbucket.org/site/oauth2/authorize"
+    token_uri = "https://bitbucket.org/site/oauth2/access_token"
     server_base_uri = "https://api.bitbucket.org/"
+
+    company_name='whirlsoftware'
+    repo_name='whirl_quality_gate'
 
     client = BackendApplicationClient(client_id=client_id)
     bitbucket = OAuth2Session(client=client)
-    token = bitbucket.fetch_token(token_url='https://bitbucket.org/site/oauth2/access_token', client_id=client_id,
+    token = bitbucket.fetch_token(token_url='{}'.format(token_uri), client_id=client_id,
         client_secret=client_secret)
     print(token)
-    r = bitbucket.get(server_base_uri + "1.0/user")
+    r = bitbucket.get(server_base_uri + "2.0/repositories/{}/{}/pullrequests".format(company_name, repo_name))
     print(r.content)
 
 if __name__ == "__main__":
