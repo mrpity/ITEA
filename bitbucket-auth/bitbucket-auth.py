@@ -46,6 +46,7 @@ def main1():
     auth_uri = "https://bitbucket.org/site/oauth2/authorize"
     token_uri = "https://bitbucket.org/site/oauth2/access_token"
     server_base_uri = "https://api.bitbucket.org/"
+    q_filter = "?q=source.repository.full_name+%21%3D+%22main%2Frepo%22+AND+state+%3D+%22OPEN%22+AND+destination.branch.name+%3D+%22develop%22"
 
     company_name='whirlsoftware'
     repo_name='whirl_quality_gate'
@@ -55,7 +56,7 @@ def main1():
     token = bitbucket.fetch_token(token_url='{}'.format(token_uri), client_id=client_id,
         client_secret=client_secret)
     print(token)
-    r = bitbucket.get(server_base_uri + "2.0/repositories/{}/{}/pullrequests".format(company_name, repo_name))
+    r = bitbucket.get(server_base_uri + "2.0/repositories/{}/{}/pullrequests{}".format(company_name, repo_name, q_filter))
     print(r.content)
 
 if __name__ == "__main__":
