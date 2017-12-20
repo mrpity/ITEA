@@ -58,6 +58,8 @@ def main1():
     print(token)
     r = bitbucket.get(server_base_uri + "2.0/repositories/{}/{}/pullrequests{}".format(company_name, repo_name, q_filter))
     print(r.content)
+    p = bitbucket.post(server_base_uri + "2.0/repositories/{}/{}/pullrequests/8/approve".format(company_name, repo_name))
+    print(p)
 
 if __name__ == "__main__":
 #    main()
