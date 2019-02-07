@@ -1,0 +1,130 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "elastic-mapping.fullname" . }}
+  labels:
+    app: {{ include "elastic-mapping.name" . }}
+    chart: {{ include "elastic-mapping.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+    backoffLimit: 3
+    template:
+       metadata:
+         labels:
+            app: {{ include "elastic-mapping.name" . }}
+            chart: {{ include "elastic-mapping.chart" . }}
+            release: {{ .Release.Name }}
+            heritage: {{ .Release.Service }}
+       spec:
+         initContainers:
+           - name: init1
+             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+             volumeMounts:
+               - name: mappings
+                 mountPath: "/mappings"
+                 readOnly: false
+               - name: workdir
+                 mountPath: "/workdir"
+                 readOnly: false
+             env:
+               - name: ELASTICSEARCH_URL
+                 value: "{{ .Values.ELASTICSEARCH_URL }}"
+{{- if .Values.WEBPAGES_MAPPING_VERSION }}
+               - name: WEBPAGES_MAPPING_VERSION
+                 value: "{{ .Values.WEBPAGES_MAPPING_VERSION }}"
+{{- end }}
+{{- if .Values.PROFILES_MAPPING_VERSION }}
+               - name: PROFILES_MAPPING_VERSION
+                 value: "{{ .Values.PROFILES_MAPPING_VERSION }}"
+{{- end }}
+{{- if .Values.GROUPS_MAPPING_VERSION }}
+               - name: GROUPS_MAPPING_VERSION
+                 value: "{{ .Values.GROUPS_MAPPING_VERSION }}"
+{{- end }}
+{{- if .Values.POSTS_MAPPING_VERSION }}
+               - name: POSTS_MAPPING_VERSION
+                 value: "{{ .Values.POSTS_MAPPING_VERSION }}"
+{{- end }}
+{{- if .Values.MEDIADATA_MAPPING_VERSION }}
+               - name: MEDIADATA_MAPPING_VERSION
+                 value: "{{ .Values.MEDIADATA_MAPPING_VERSION }}"
+{{- end }}
+             command:
+             - sh
+             - "-c"
+             - |
+               apk add gettext
+{{- if .Values.GROUPS_MAPPING_VERSION }}
+               envsubst '$GROUPS_MAPPING_VERSION' < mappings/groups.json.template > /workdir/groups.json
+               python -m json.tool < /workdir/groups.json
+{{- end }}
+{{- if .Values.PROFILES_MAPPING_VERSION }}
+               envsubst '$PROFILES_MAPPING_VERSION' < mappings/profiles.json.template > /workdir/profiles.json
+               python -m json.tool < /workdir/profiles.json
+{{- end }}
+{{- if .Values.POSTS_MAPPING_VERSION }}
+               envsubst '$POSTS_MAPPING_VERSION' < mappings/posts.json.template > /workdir/posts.json
+               python -m json.tool < /workdir/posts.json
+{{- end }}
+{{- if .Values.MEDIADATA_MAPPING_VERSION }}
+               envsubst '$MEDIADATA_MAPPING_VERSION' < mappings/mediadata.json.template > /workdir/mediadata.json
+               python -m json.tool < /workdir/mediadata.json
+{{- end }}
+         containers:
+           - name: elastic-mapping-update
+             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+             volumeMounts:
+               - name: mappings
+                 mountPath: "/mappings"
+                 readOnly: false
+               - name: workdir
+                 mountPath: "/workdir"
+                 readOnly: false
+             env:
+               - name: ELASTICSEARCH_URL
+                 value: "{{ .Values.ELASTICSEARCH_URL }}"
+{{- if .Values.WEBPAGES_MAPPING_VERSION }}
+               - name: WEBPAGES_MAPPING_VERSION
+                 value: "{{ .Values.WEBPAGES_MAPPING_VERSION }}"
+{{- end }}
+{{- if .Values.PROFILES_MAPPING_VERSION }}
+               - name: PROFILES_MAPPING_VERSION
+                 value: "{{ .Values.PROFILES_MAPPING_VERSION }}"
+{{- end }}
+{{- if .Values.GROUPS_MAPPING_VERSION }}
+               - name: GROUPS_MAPPING_VERSION
+                 value: "{{ .Values.GROUPS_MAPPING_VERSION }}"
+{{- end }}
+{{- if .Values.POSTS_MAPPING_VERSION }}
+               - name: POSTS_MAPPING_VERSION
+                 value: "{{ .Values.POSTS_MAPPING_VERSION }}"
+{{- end }}
+{{- if .Values.MEDIADATA_MAPPING_VERSION }}
+               - name: MEDIADATA_MAPPING_VERSION
+                 value: "{{ .Values.MEDIADATA_MAPPING_VERSION }}"
+{{- end }}
+             command:
+             - sh
+             - "-c"
+             - |
+               apk add curl
+{{- if .Values.PROFILES_MAPPING_VERSION }}
+               curl -XPUT http://$ELASTICSEARCH_URL:9200/_template/profiles -H 'Content-Type: application/json' -d@/workdir/profiles.json
+{{- end }}
+{{- if .Values.GROUPS_MAPPING_VERSION }}
+               curl -XPUT http://$ELASTICSEARCH_URL:9200/_template/groups -H 'Content-Type: application/json' -d@/workdir/groups.json
+{{- end }}
+{{- if .Values.POSTS_MAPPING_VERSION }}
+               curl -XPUT http://$ELASTICSEARCH_URL:9200/_template/posts -H 'Content-Type: application/json' -d@/workdir/posts.json
+{{- end }}
+{{- if .Values.MEDIADATA_MAPPING_VERSION }}
+               curl -XPUT http://$ELASTICSEARCH_URL:9200/_template/mediadata -H 'Content-Type: application/json' -d@/workdir/mediadata.json
+{{- end }}
+         volumes:
+           - name: mappings
+             configMap:
+                name: "{{ include "elastic-mapping.fullname" . }}"
+           - name: workdir
+             emptyDir: {}
+         restartPolicy: Never

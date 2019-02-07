@@ -1,0 +1,80 @@
+{
+  "index_patterns": ["media*"],
+  "version": 1,
+  "settings": {
+    "number_of_shards" :   5,
+    "number_of_replicas" : 3
+  },
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "errorPageContent": {
+          "type": "text",
+          "index": false
+        },
+        "crawlingTimeMillis": {"type": "long"},
+        "type": {"type": "keyword"},
+        "documentId": {"type": "keyword"},
+        "errorMessage": {
+          "type": "text",
+          "index": false
+        },
+        "crawlingInput": {
+          "properties": {
+            "avatarCredentials": {
+              "properties": {
+                "password": {"type": "keyword"},
+                "login": {"type": "keyword"}
+              }
+            },
+            "profileId": {"type": "keyword"},
+            "currentDepth": {
+              "type": "short",
+              "index": false
+            },
+            "type": {"type": "keyword"},
+            "depth": {"type": "short"},
+            "expireAtEpochSec": {"type": "long"},
+            "id": {"type": "long"},
+            "url": {"type": "text"},
+            "resource": {"type": "keyword"},
+            "countryCode": {"type": "keyword"},
+            "city": {"type": "keyword"},
+            "proxy": {"type": "keyword"},
+            "scenario": {"type": "keyword"},
+            "crawlImages": {"type": "boolean"}
+          }
+        },
+        "actualUrl": {"type": "text"},
+        "screenshotPath": {"type": "text"},
+        "content": {
+          "properties": {
+            "filePath": {"type": "text"},
+            "parentUrl": {"type": "text"},
+            "mediaUrl":  {"type": "text"},
+            "attributes": {
+              "properties": {
+                "src": {"type": "text"},
+                "alt": {"type": "text"},
+                "author_name": {"type": "text"},
+                "success": {"type": "boolean"},
+                "provider_url": {"type": "text"},
+                "title": {"type": "text"},
+                "thumbnail_url": {"type": "text"},
+                "type": {"type": "keyword"},
+                "version": {"type": "keyword"},
+                "thumbnail_height": {"type": "integer"},
+                "author_url": {"type": "text"},
+                "width": {"type": "integer"},
+                "thumbnail_width": {"type": "integer"},
+                "html": {"type": "text"},
+                "provider_name": {"type": "text"},
+                "height": {"type": "integer"}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

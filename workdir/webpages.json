@@ -1,0 +1,157 @@
+{
+  "index_patterns": ["webpage*"],
+  "version": 8,
+  "settings": {
+    "number_of_shards" :  5,
+    "number_of_replicas" : 3
+  },
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "errorPageContent": {
+          "type": "text",
+          "index": false
+        },
+        "crawlingTimeMillis": {"type": "long"},
+        "type": {"type": "keyword"},
+        "errorMessage": {
+          "type": "text",
+          "index": false
+        },
+        "crawlingInput": {
+          "properties": {
+            "avatarCredentials": {
+              "properties": {
+                "password": {"type": "keyword"},
+                "login": {"type": "keyword"}
+              }
+            },
+            "profileId": {"type": "keyword"},
+            "currentDepth": {
+              "type": "short",
+              "index": false
+            },
+            "type": {"type": "keyword"},
+            "depth": {"type": "short"},
+            "expireAtEpochSec": {"type": "long"},
+            "id": {"type": "long"},
+            "resource": {"type": "text"},
+            "url": {"type": "text"},
+            "proxy": {"type": "keyword"},
+            "countryCode": {"type": "keyword"}
+          }
+        },
+        "actualUrl": {"type": "text"},
+        "documentId": {"type": "long"},
+        "persons": {
+          "type": "nested",
+          "properties": {
+            "span": {
+              "type": "long",
+              "index": false
+            },
+            "text": {"type": "keyword"}
+          }
+        },
+        "dates": {
+          "type": "nested",
+          "properties": {
+            "span": {
+              "type": "long",
+              "index": false
+            },
+            "text": {"type": "keyword"}
+          }
+        },
+        "locations": {
+          "type": "nested",
+          "properties": {
+            "span": {
+              "type": "long",
+              "index": false
+            },
+            "text": {"type": "keyword"}
+          }
+        },
+        "organizations": {
+          "type": "nested",
+          "properties": {
+            "span": {
+              "type": "long",
+              "index": false
+            },
+            "text": {"type": "keyword"}
+          }
+        },
+        "keywords": {"type": "keyword"},
+        "urls": {"type": "text"},
+        "sentiment_label": {"type": "keyword"},
+        "lang": {"type": "keyword"},
+        "publicationDateTime": {"type": "text"},
+        "publicationDatetimeUtc": {"type": "keyword"},
+        "sentiment": {
+          "properties": {
+            "positive": {"type": "double"},
+            "negative": {"type": "double"}
+          }
+        },
+        "content": {
+          "properties": {
+            "cleanedText": {"type": "text"},
+            "extendedMeta": {
+              "type": "nested",
+              "properties": {
+                "charset": {"type": "keyword"},
+                "content": {"type": "text"},
+                "http-equiv": {"type": "keyword"},
+                "name": {"type": "text"},
+                "property": {"type": "keyword"}
+              }
+            },
+            "hTags": {
+              "properties": {
+                "h1": {"type": "text"},
+                "h2": {"type": "text"},
+                "h3": {"type": "text"},
+                "h4": {"type": "text"},
+                "h5": {"type": "text"},
+                "h6": {"type": "text"}
+              }
+            },
+            "simplifiedHtml": {"type": "text"},
+            "normalizedHtml": {"type": "text"},
+            "webMetaInfo": {
+              "properties": {
+                "mainArticleGoose3": {"type": "text"},
+                "basicMeta": {
+                  "properties": {
+                    "keywords": {"type": "keyword"},
+                    "description": {"type": "text"},
+                    "encoding": {"type": "keyword"},
+                    "lang": {"type": "keyword"}
+                  }
+                },
+                "opengraph": {
+                  "properties": {
+                    "url": {"type": "text"},
+                    "image": {"type": "text"},
+                    "type": {"type": "keyword"},
+                    "title": {"type": "text"},
+                    "site_name": {"type": "text"},
+                    "description": {"type": "text"}
+                  }
+                },
+                "title": {"type": "text"},
+                "tags": {"type": "keyword"},
+                "links": {"type": "text"},
+                "top_image": {"type": "text"}
+              }
+            },
+            "mainArticle": {"type": "text"}
+          }
+        }
+      }
+    }
+  }
+}
+

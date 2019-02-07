@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "elastic-mapping.fullname" . }}
+  labels:
+    app: {{ include "elastic-mapping.name" . }}
+    chart: {{ include "elastic-mapping.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  {{- (.Files.Glob "mappings/*").AsConfig  | nindent 2 }}
+  {{- (.Files.Glob "scripts/*").AsConfig  | nindent 2 }}
+

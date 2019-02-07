@@ -1,0 +1,125 @@
+{
+  "index_patterns": ["post*"],
+  "version": 1,
+  "settings": {
+    "number_of_shards" :   5,
+    "number_of_replicas" : 3
+  },
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "errorPageContent": {
+          "type": "text",
+          "index": false
+        },
+        "crawlingTimeMillis": {"type": "long"},
+        "type": {"type": "keyword"},
+        "errorMessage": {
+          "type": "text",
+          "index": false
+        },
+        "crawlingInput": {
+          "properties": {
+            "avatarCredentials": {
+              "properties": {
+                "password": {"type": "keyword"},
+                "login": {"type": "keyword"}
+              }
+            },
+            "profileId": {"type": "keyword"},
+            "currentDepth": {
+              "type": "short",
+              "index": false
+            },
+            "type": {"type": "keyword"},
+            "depth": {"type": "short"},
+            "expireAtEpochSec": {"type": "long"},
+            "id": {"type": "long"},
+            "resource": {"type": "text"},
+            "url": {"type": "text"},
+            "proxy": {"type": "keyword"},
+            "countryCode": {"type": "keyword"}
+          }
+        },
+        "actualUrl": {"type": "text"},
+        "documentId": {"type": "long"},
+        "persons": {
+          "type": "nested",
+          "properties": {
+            "span": {
+              "type": "long",
+              "index": false
+            },
+            "text": {"type": "keyword"}
+          }
+        },
+        "dates": {
+          "type": "nested",
+          "properties": {
+            "span": {
+              "type": "long",
+              "index": false
+            },
+            "text": {"type": "keyword"}
+          }
+        },
+        "locations": {
+          "type": "nested",
+          "properties": {
+            "span": {
+              "type": "long",
+              "index": false
+            },
+            "text": {"type": "keyword"}
+          }
+        },
+        "organizations": {
+          "type": "nested",
+          "properties": {
+            "span": {
+              "type": "long",
+              "index": false
+            },
+            "text": {"type": "keyword"}
+          }
+        },
+        "keywords": {"type": "keyword"},
+        "urls": {"type": "text"},
+        "sentiment_label": {"type": "keyword"},
+        "lang": {"type": "keyword"},
+        "sentiment": {
+          "properties": {
+            "positive": {"type": "double"},
+            "negative": {"type": "double"}
+          }
+        },
+        "content": {
+          "properties": {
+            "author": {"type": "text"},
+            "action": {"type": "keyword"},
+            "creationDateTime": {"type": "text"},
+            "body": {"type": "text"},
+            "url": {"type": "text"},
+            "sharedUrl": {"type": "text"},
+            "reposts": {"type": "text"},
+            "comments": {
+              "type": "nested",
+              "properties": {
+                "updateDateTime": {"type": "text"},
+                "creationDateTime": {"type": "text"},
+                "body": {"type": "text"},
+                "authorName": {"type": "text"},
+                "level": {"type": "short"},
+                "answerToUserUrl": {"type": "text"},
+                "authorUrl": {"type": "text"},
+                "url": {"type": "text"},
+                "reactions": {"type": "text"}
+              }
+            },
+            "reactions": {"type": "text"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "index_patterns": ["profile*"],
+  "version": 1,
+  "settings": {
+    "number_of_shards" :   5,
+    "number_of_replicas" : 3
+  },
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "errorPageContent": {
+          "type": "text",
+          "index": false
+        },
+        "crawlingTimeMillis": {"type": "long"},
+        "type": {"type": "keyword"},
+        "errorMessage": {
+          "type": "text",
+          "index": false
+        },
+        "crawlingInput": {
+          "properties": {
+            "avatarCredentials": {
+              "properties": {
+                "password": {"type": "keyword"},
+                "login": {"type": "keyword"}
+              }
+            },
+            "profileId": {"type": "keyword"},
+            "currentDepth": {
+              "type": "short",
+              "index": false
+            },
+            "type": {"type": "keyword"},
+            "depth": {"type": "short"},
+            "expireAtEpochSec": {"type": "long"},
+            "id": {"type": "long"},
+            "url": {"type": "text"},
+            "countryCode": {"type": "keyword"}
+          }
+        },
+        "actualUrl": {"type": "text"},
+        "content": {
+          "properties": {
+            "friends": {
+              "type": "nested",
+              "properties": {
+                "name": {"type": "text"},
+                "url": {"type": "text"}
+              }
+            },
+            "worklist": {"type": "text"},
+            "relationshipStatus": {"type": "text"},
+            "scienceList": {"type": "text"},
+            "firstName": {"type": "text"},
+            "lastName": {"type": "text"},
+            "middleName": {"type": "text"},
+            "professionalSkills": {"type": "text"},
+            "travelTourismList": {"type": "text"},
+            "languagesList": {"type": "text"},
+            "birthDate": {"type": "text"},
+            "hometownList": {"type": "text"},
+            "healthBeautyList": {"type": "text"},
+            "religiousViews": {"type": "text"},
+            "gardeningList": {"type": "text"},
+            "email": {"type": "text"},
+            "profileId": {"type": "keyword"},
+            "sportList": {"type": "text"},
+            "familyMembers": {"type": "text"},
+            "webSitesAndSocialLinks": {"type": "text"},
+            "otherInterestList": {"type": "text"},
+            "mobilePhoneList": {"type": "text"},
+            "currentCityList": {"type": "text"},
+            "gender": {"type": "keyword"},
+            "profileUrl":  {"type": "text"},
+            "foodList": {"type": "text"},
+            "carMotorcycleList": {"type": "text"},
+            "joinedFacebook": {"type": "text"},
+            "movieList": {"type": "text"},
+            "bookList": {"type": "text"},
+            "politicalViews": {"type": "text"},
+            "publicKey":  {"type": "text"},
+            "educationList": {"type": "text"},
+            "musicList": {"type": "text"},
+            "favoriteTvShows": {"type": "text"},
+            "internetList": {"type": "text"},
+            "animalList": {"type": "text"},
+            "creativityList": {"type": "text"},
+            "gamesList": {"type": "text"},
+            "address": {"type": "text"},
+            "armyList": {"type": "text"}
+          }
+        }
+      }
+    }
+  }
+}
+

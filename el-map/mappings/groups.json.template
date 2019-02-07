@@ -1,0 +1,74 @@
+{
+  "index_patterns": ["group*"],
+  "version": 1,
+  "settings": {
+    "number_of_shards" :   5,
+    "number_of_replicas" : 3
+  },
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "errorPageContent": {
+          "type": "text",
+          "index": false
+        },
+        "crawlingTimeMillis": {"type": "long"},
+        "type": {"type": "keyword"},
+        "documentId": {"type": "keyword"},
+        "errorMessage": {
+          "type": "text",
+          "index": false
+        },
+        "crawlingInput": {
+          "properties": {
+            "avatarCredentials": {
+              "properties": {
+                "password": {"type": "keyword"},
+                "login": {"type": "keyword"}
+              }
+            },
+            "profileId": {"type": "keyword"},
+            "currentDepth": {
+              "type": "short",
+              "index": false
+            },
+            "type": {"type": "keyword"},
+            "depth": {"type": "short"},
+            "expireAtEpochSec": {"type": "long"},
+            "id": {"type": "long"},
+            "url": {"type": "text"},
+            "countryCode": {"type": "keyword"},
+            "city": {"type": "keyword"},
+            "proxy": {"type": "keyword"},
+            "scenario": {"type": "keyword"},
+            "crawlImages": {"type": "boolean"}
+          }
+        },
+        "actualUrl": {"type": "text"},
+        "screenshotPath": {"type": "text"},
+        "content": {
+          "properties": {
+            "members": {
+              "type": "nested",
+              "properties": {
+                "name": {"type": "text"},
+                "url": {"type": "text"}
+              }
+            },
+            "type": {"type": "keyword"},
+            "description": {"type": "text"},
+            "events": {
+              "type": "nested",
+              "properties": {
+                "name": {"type": "text"},
+                "place": {"type": "text"},
+                "url": {"type": "text"},
+                "eventDate": {"type": "text"}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
