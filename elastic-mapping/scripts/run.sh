@@ -1,3 +1,7 @@
 #!/usr/bin/env sh
 
-pip install requirements.txt
+set -euo pipefail
+
+pip install --upgrade pip
+pip install -U --no-cache-dir -r requirements.txt
+

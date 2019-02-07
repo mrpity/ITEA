@@ -26,9 +26,10 @@ spec:
              env:
                - name: ELASTICSEARCH_URL
                  value: "{{ .Values.ELASTICSEARCH_URL }}"
-             command: ["./workdir/run.sh"]
+             command: ["/workdir/run.sh"] 
          volumes:
            - name: workdir
              configMap:
                 name: "{{ include "elastic-mapping.fullname" . }}"
+	        defaultMode: 0744
          restartPolicy: Never
