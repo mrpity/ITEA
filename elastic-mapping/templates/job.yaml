@@ -8,6 +8,14 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
+    template:
+       metadata:
+         labels:
+            app: {{ include "elastic-mapping.name" . }}
+            chart: {{ include "elastic-mapping.chart" . }}
+            release: {{ .Release.Name }}
+            heritage: {{ .Release.Service }}
+       spec:
          containers:
            - name: elastic-mapping-update
              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
