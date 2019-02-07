@@ -3,6 +3,9 @@
 # Declare variables to be passed into your templates.
 
 ELASTICSEARCH_URL: "elas-elasticsearch-client.elasticsearch"
+MAPPING_ACTION: "create"
+# This var will be sent as env variable during helm install procedure
+# MAPPING_LIST: ""
 
 image:
   repository: python

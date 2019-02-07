@@ -26,6 +26,10 @@ spec:
              env:
                - name: ELASTICSEARCH_URL
                  value: "{{ .Values.ELASTICSEARCH_URL }}"
+               - name: MAPPING_LIST
+                 value: "{{ .Values.MAPPING_LIST"
+               - name: MAPPING_ACTION
+                 value: "{{ .Values.MAPPING_ACTION"
              command: ["/workdir/run.sh"] 
          volumes:
            - name: workdir

@@ -61,6 +61,13 @@ class Controller():
             except Exception as e:
                 print("[{:%Y-%m-%d %H:%M:%S}]: ERROR: Could not parse: --{}--. {}".format(datetime.datetime.now(), entity, e))
                 sys.exit(1)
+        elif isinstance(entity, list) and (' ' in entity[0]):
+            try:
+                transformed_data = [item for item in entity[0].split(' ')]
+                return transformed_data
+            except Exception as e:
+                print("[{:%Y-%m-%d %H:%M:%S}]: ERROR: Could not parse: --{}--. {}".format(datetime.datetime.now(), entity, e))
+                sys.exit(1)
         elif isinstance(entity, list):
             return entity
         else:
