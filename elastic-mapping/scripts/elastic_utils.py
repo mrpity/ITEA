@@ -69,7 +69,7 @@ class Controller():
 
     def CreateParser(self):
         parser = argparse.ArgumentParser()
-        parser.add_argument('-elastic', '--elastic_url', default='elastic-elasticsearch-client', help='Specify Elasticsearch client host')
+        parser.add_argument('-e', '--elastic_url', default='elastic-elasticsearch-client', help='Specify Elasticsearch client host')
         parser.add_argument('-p', '--elastic_port', default='9200', help='Specify Elasticsearch port')
         parser.add_argument('-m', '--mapping_json_list', required=True, help='Set list of json separated by space. Example: -m webpages posts')
         parser.add_argument('-d', '--mapping_dir', default="/workdir", help='Set directory from where we will read template mappings')
@@ -83,9 +83,9 @@ class Controller():
 
     def CreateParserLocal(self):
         parser = argparse.ArgumentParser()
-        parser.add_argument('-elastic', '--elastic_url', default='localhost', help='Specify Elasticsearch client host')
+        parser.add_argument('-e', '--elastic_url', default='localhost', help='Specify Elasticsearch client host')
         parser.add_argument('-p', '--elastic_port', default='9200', help='Specify Elasticsearch port')
-        parser.add_argument('-m', '--mapping_json_list', default=[''] , help='Set list of json separated by space. Example: -d webpages posts.')
+        parser.add_argument('-m', '--mapping_json_list', nargs='*', required=True , help='Set list of json separated by space. Example: -d webpages posts.')
         parser.add_argument('-d', '--mapping_dir', default="/workdir", help='Set directory from where we will read template mappings')
         parser.add_argument('-a', '--action', default='remove', help='Choose action to execute: remove, create')
         self.elasticsearch_url = parser.parse_args().elastic_url
