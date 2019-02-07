@@ -34,8 +34,8 @@ class Controller():
         self.mappings_workdir = None
 
         # Parse CLI args and set variables
-        self.CreateParser()
-        #self.CreateParserLocal() # For local debug
+        #self.CreateParser()
+        self.CreateParserLocal() # For local debug
 
     def ChooseAction(self):
         api = ElasticseachApi(self.elasticsearch_url, self.elasticsearch_port, self.mapping_json_list, self.action, self.mappings_workdir)
@@ -71,7 +71,7 @@ class Controller():
         parser = argparse.ArgumentParser()
         parser.add_argument('-elastic', '--elastic_url', default='elastic-elasticsearch-client', help='Specify Elasticsearch client host')
         parser.add_argument('-p', '--elastic_port', default='9200', help='Specify Elasticsearch port')
-        parser.add_argument('-m', '--mapping_json_list', required=True, help='Set list of json separated by space. Example: -m webpages.json posts.json')
+        parser.add_argument('-m', '--mapping_json_list', required=True, help='Set list of json separated by space. Example: -m webpages posts')
         parser.add_argument('-d', '--mapping_dir', default="/workdir", help='Set directory from where we will read template mappings')
         parser.add_argument('-a', '--action', required=True, help='Choose action to execute: remove, create')
         self.elasticsearch_url = parser.parse_args().elastic_url
@@ -85,7 +85,7 @@ class Controller():
         parser = argparse.ArgumentParser()
         parser.add_argument('-elastic', '--elastic_url', default='localhost', help='Specify Elasticsearch client host')
         parser.add_argument('-p', '--elastic_port', default='9200', help='Specify Elasticsearch port')
-        parser.add_argument('-m', '--mapping_json_list', default=['webpages'] , help='Set list of json separated by space. Example: -d webpages.json posts.json')
+        parser.add_argument('-m', '--mapping_json_list', default=[''] , help='Set list of json separated by space. Example: -d webpages posts.')
         parser.add_argument('-d', '--mapping_dir', default="/workdir", help='Set directory from where we will read template mappings')
         parser.add_argument('-a', '--action', default='remove', help='Choose action to execute: remove, create')
         self.elasticsearch_url = parser.parse_args().elastic_url
