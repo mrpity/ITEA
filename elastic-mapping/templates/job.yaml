@@ -31,5 +31,5 @@ spec:
            - name: workdir
              configMap:
                 name: "{{ include "elastic-mapping.fullname" . }}"
-	        defaultMode: 0744
+                defaultMode: 0744
          restartPolicy: Never
