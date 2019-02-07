@@ -54,16 +54,15 @@ class Controller():
 
     def TransformToList(self, entity):
         # Check if 'entity' is not list, and try to transform it
-        if entity:
+        if isinstance(entity, list) and (',' in entity[0]):
             try:
                 transformed_data = [item for item in entity[0].split(',')]
                 return transformed_data
-            except AttributeError:
-                try:
-                    transformed_data = [item for item in entity.split(' ')]
-                    return transformed_data
-                except AttributeError:
-                    return entity
+            except Exception as e:
+                print("[{:%Y-%m-%d %H:%M:%S}]: ERROR: Could not parse: --{}--. {}".format(datetime.datetime.now(), entity, e))
+                sys.exit(1)
+        elif isinstance(entity, list):
+            return entity
         else:
             print("[{:%Y-%m-%d %H:%M:%S}]: ERROR: Mapping list is empty: --{}--".format(datetime.datetime.now(), entity))
             sys.exit(1)
