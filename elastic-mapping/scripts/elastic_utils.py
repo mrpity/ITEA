@@ -35,7 +35,7 @@ class Controller():
 
         # Parse CLI args and set variables
         self.CreateParser()
-        #self.CreateParserLocal() # For local debug
+        # self.CreateParserLocal() # For local debug
 
     def ChooseAction(self):
         api = ElasticseachApi(self.elasticsearch_url, self.elasticsearch_port, self.mapping_json_list, self.action, self.mappings_workdir)
@@ -133,30 +133,22 @@ class ElasticseachApi():
             sys.exit(1)
             
     def BeforeCreateRequest(self, mapping):
-        # Set mapping file name and workdir
-        mapping_file_name = self.AddJsonExpansion(mapping)  # Set full name of mapping file
-        workdir = os.path.dirname(sys.argv[0]) + self.mappings_workdir # Set current workdir
-
         # Get version of mapping from file on local filesystem
-        local_mapping_version = self.GetLocalJsonVersion(workdir, mapping)
-
+        local_mapping_version = self.GetLocalJsonVersion(mapping)
         # Check if such mapping template exists in elasticsearch and return this version.
         remote_mapping_version = self.GetRemoteJsonVersion(mapping)
-
         # Check Remote and Local Versions
         print('[{:%Y-%m-%d %H:%M:%S}]: INFO: REMOTE VERSION: {} and LOCAL VERSION: {}'.format(datetime.datetime.now(),
                                                                                               remote_mapping_version,
                                                                                               local_mapping_version))
         self.CompareMappingsVersions(remote_mapping_version, local_mapping_version)
 
-        return {'workdir':workdir, 'mapping_file_name':mapping_file_name}
-
     def CreateRequest(self, mapping):
         # Validate versions of mappings. Return workdir and file name
-        file_mapping_info = self.BeforeCreateRequest(mapping)
+        self.BeforeCreateRequest(mapping)
 
-        with open('{}/{}'.format(file_mapping_info['workdir'], file_mapping_info['mapping_file_name']),'rb') as f:
-            print('[{:%Y-%m-%d %H:%M:%S}]: INFO: Try to create {} template mapping'.format(datetime.datetime.now(), file_mapping_info['mapping_file_name']))
+        with open('{}/{}'.format(self.mappings_workdir, self.AddJsonExpansion(mapping)),'rb') as f:
+            print('[{:%Y-%m-%d %H:%M:%S}]: INFO: Try to create {} template mapping'.format(datetime.datetime.now(), self.AddJsonExpansion(mapping)))
             resp = requests.put('http://{}:{}/_template/{}'.format(self.elasticsearch_url, self.elasticsearch_port, mapping), data=f, headers={'Content-Type':'application/json'}, timeout=self.apiTimeout)
             print('[{:%Y-%m-%d %H:%M:%S}]: INFO: {} template mapping is creating. Wait {} seconds for applying configuration'.format(datetime.datetime.now(), mapping, self.timeout_between_execution))
             time.sleep(int('{}'.format(self.timeout_between_execution)))
@@ -177,8 +169,8 @@ class ElasticseachApi():
     def AddJsonExpansion(self, mapping):
         return mapping + ".json"
 
-    def GetLocalJsonVersion(self, workdir, mapping):
-        with open('{}/{}'.format(workdir, self.AddJsonExpansion(mapping)), "r") as f:
+    def GetLocalJsonVersion(self, mapping):
+        with open('{}/{}'.format(self.mappings_workdir, self.AddJsonExpansion(mapping)), "r") as f:
             try:
                 json_object = json.load(f)
                 print("[{:%Y-%m-%d %H:%M:%S}]: INFO: LOCAL: Try to get mapping version: {}".format(datetime.datetime.now(), mapping))

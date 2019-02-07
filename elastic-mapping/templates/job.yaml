@@ -8,6 +8,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
+    backoffLimit: 2
     template:
        metadata:
          labels:
